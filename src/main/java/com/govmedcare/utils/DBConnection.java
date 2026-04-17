@@ -21,10 +21,8 @@ public class DBConnection {
             logger.log(Level.SEVERE,e.getMessage());
         }
     }
-    public static void getConnection() throws SQLException {
-        DriverManager.getConnection(URL, userName, password);
-    }
-    public static void main(String[] args) throws SQLException {
-        DBConnection.getConnection();
+    public static Connection getConnection() throws SQLException {
+       return DriverManager.getConnection(URL, userName, password);
+
     }
 }

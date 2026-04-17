@@ -1,6 +1,8 @@
 package com.govmedcare.model;
+
 import com.govmedcare.types.UserRole;
 import com.govmedcare.types.UserStatus;
+
 import java.sql.Timestamp;
 
 
@@ -8,19 +10,43 @@ public class User {
     private long id;
     private String name;
     private String email;
-    private  String password;
-    private String roles;
+    private String password;
     private UserRole role;
-    private Long phone;
+    private String phone;
     private String address;
     private UserStatus status;
     private Timestamp created_at;
 
-    public Long getPhone() {
+    public User(String name, String email, String password, UserRole role, String phone, String address, UserStatus status) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.phone = phone;
+        this.address = address;
+        this.status = status;
+    }
+
+    public User(long id, String name, String email, String password, UserRole role, String phone, String address, UserStatus status, Timestamp created_at) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.phone = phone;
+        this.address = address;
+        this.status = status;
+        this.created_at = created_at;
+    }
+
+    public User() {
+    }
+
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -54,14 +80,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
     }
 
     public UserRole getRole() {
