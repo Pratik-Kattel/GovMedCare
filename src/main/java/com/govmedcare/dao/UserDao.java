@@ -2,19 +2,19 @@ package com.govmedcare.dao;
 import com.govmedcare.model.User;
 import com.govmedcare.repository.UserRepository;
 import com.govmedcare.utils.DBConnection;
+import com.govmedcare.utils.QueryUtil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDao implements UserRepository {
-    final String saveUser="Insert into users(name,email,password,role,phone,address) VALUES(?,?,?,?,?,?)";
-    final String checkByEmail="SELECT * FROM users where id=?";
 
     @Override
     public boolean saveUser(User user) {
         try(Connection conn= DBConnection.getConnection();
-            PreparedStatement ps=conn.prepareStatement(saveUser);
+            PreparedStatement ps=conn.prepareStatement(QueryUtil.saveUser);
         ){
             ps.setString(1,user.getName());
             ps.setString(2,user.getEmail());
@@ -38,7 +38,7 @@ public class UserDao implements UserRepository {
     @Override
     public boolean checkByEmail(String email) {
         try(Connection conn=DBConnection.getConnection();
-        PreparedStatement ps=conn.prepareStatement(checkByEmail);
+        PreparedStatement ps=conn.prepareStatement(QueryUtil.checkByEmail);
         ){
             ps.setString(1,email);
             ResultSet rs=ps.executeQuery();
