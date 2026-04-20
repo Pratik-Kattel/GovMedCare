@@ -26,6 +26,13 @@ public class User {
         this.address = address;
         this.status = status;
     }
+    public User(String name,String email,String address,String phone,String password){
+        this.name=name;
+        this.email=email;
+        this.address=address;
+        this.phone=phone;
+        this.password=password;
+    }
 
     public User(long id, String name, String email, String password, UserRole role, String phone, String address, UserStatus status, Timestamp created_at) {
         this.id = id;
