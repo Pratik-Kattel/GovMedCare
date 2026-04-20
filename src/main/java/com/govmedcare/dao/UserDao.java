@@ -8,8 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDao implements UserRepository {
+    private static final Logger logger=Logger.getLogger(UserDao.class.getName());
 
     @Override
     public boolean saveUser(User user) {
@@ -30,7 +33,7 @@ public class UserDao implements UserRepository {
             return false;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"User not saved",e);
         }
         return false;
     }
@@ -45,7 +48,7 @@ public class UserDao implements UserRepository {
             return  rs.next();
         }
         catch (SQLException e){
-            e.printStackTrace();;
+            logger.log(Level.SEVERE,"Query not executed",e);
         }
         return false;
     }
