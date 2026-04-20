@@ -1,5 +1,4 @@
 package com.govmedcare.controller;
-
 import com.govmedcare.exception.UserAlreadyExistsException;
 import com.govmedcare.model.User;
 import com.govmedcare.service.AuthService;
@@ -23,6 +22,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
         super.init(servletConfig);
+        System.out.println("RegisterServlet initialized");
         this.authService = new AuthService();
     }
 
@@ -39,14 +39,16 @@ public class RegisterServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String phone = request.getParameter("phone");
+
+
         String address = request.getParameter("address");
         try{
-        User user = new User(name, email, password, phone, address);
+        User user = new User(name, email, address, phone, password);
         UserValidator.validateRegistrationCredentials(user);
         boolean isRegistered = authService.registerUserService(user);
         if(isRegistered){
             request.setAttribute("success","Registration successful please login to continue");
-            request.getRequestDispatcher("/views/login.jsp").forward(request,response);
+            request.getRequestDispatcher("/views/register.jsp").forward(request,response);
         }
         else {
             request.setAttribute("error","Internal error occurred, please try again");
@@ -55,7 +57,7 @@ public class RegisterServlet extends HttpServlet {
     }
         catch (IllegalArgumentException | UserAlreadyExistsException e){
             request.setAttribute("error",e.getMessage());
-            request.getRequestDispatcher("/pages/register.jsp").forward(request,response);
+            request.getRequestDispatcher("/views/register.jsp").forward(request,response);
         }
     }
 }
