@@ -35,7 +35,7 @@ public class UserDao implements UserRepository {
             return false;
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "User not saved", e);
+            logger.log(Level.SEVERE, "User not saved", e.getMessage());
         }
         return false;
     }
@@ -49,7 +49,7 @@ public class UserDao implements UserRepository {
             ResultSet rs = ps.executeQuery();
             return rs.next();
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Query not executed", e);
+            logger.log(Level.SEVERE, "Query not executed", e.getMessage());
         }
         return false;
     }
@@ -77,7 +77,7 @@ public class UserDao implements UserRepository {
             }
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Query not executed",e);
+            logger.log(Level.SEVERE, "Query not executed",e.getMessage());
         }
         return Optional.empty();
     }
