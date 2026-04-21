@@ -35,4 +35,8 @@ public class UserValidator {
             throw new IllegalArgumentException("Password cannot be empty and must me 6 character long");
         }
     }
+    public static void validateLoginCredentials(String email,String password){
+        validateEmail(email);
+        validatePassword(password);
+    }
 }

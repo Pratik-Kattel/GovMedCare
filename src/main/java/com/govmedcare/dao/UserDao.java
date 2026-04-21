@@ -1,55 +1,85 @@
 package com.govmedcare.dao;
 import com.govmedcare.model.User;
 import com.govmedcare.repository.UserRepository;
+import com.govmedcare.types.UserRole;
+import com.govmedcare.types.UserStatus;
 import com.govmedcare.utils.DBConnection;
 import com.govmedcare.utils.QueryUtil;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserDao implements UserRepository {
-    private static final Logger logger=Logger.getLogger(UserDao.class.getName());
+    private static final Logger logger = Logger.getLogger(UserDao.class.getName());
 
     @Override
     public boolean saveUser(User user) {
-        try(Connection conn= DBConnection.getConnection();
-            PreparedStatement ps=conn.prepareStatement(QueryUtil.saveUser);
-        ){
-            ps.setString(1,user.getName());
-            ps.setString(2,user.getEmail());
-            ps.setString(3,user.getPassword());
-            ps.setString(4,user.getRole().name());
-            ps.setString(5,user.getPhone());
-            ps.setString(6,user.getAddress());
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.saveUser);
+        ) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.setString(4, user.getRole().name());
+            ps.setString(5, user.getPhone());
+            ps.setString(6, user.getAddress());
 
-            int rowsAffected=ps.executeUpdate();
-            if(rowsAffected>0){
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
                 return true;
             }
             return false;
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE,"User not saved",e);
+            logger.log(Level.SEVERE, "User not saved", e);
         }
         return false;
     }
 
     @Override
     public boolean checkByEmail(String email) {
-        try(Connection conn=DBConnection.getConnection();
-        PreparedStatement ps=conn.prepareStatement(QueryUtil.checkByEmail);
-        ){
-            ps.setString(1,email);
-            ResultSet rs=ps.executeQuery();
-            return  rs.next();
-        }
-        catch (SQLException e){
-            logger.log(Level.SEVERE,"Query not executed",e);
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.checkByEmail);
+        ) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query not executed", e);
         }
         return false;
     }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.checkByEmail)
+        ) {
+            ps.setString(1,email);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()) {
+                User user = new User(
+                        rs.getLong("user_id"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        UserRole.valueOf(rs.getString("role")),
+                        rs.getString("phone"),
+                        rs.getString("address"),
+                        UserStatus.valueOf(rs.getString("status")),
+                        rs.getTimestamp("created_at")
+                );
+                return Optional.of(user);
+            }
+
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query not executed",e);
+        }
+        return Optional.empty();
+    }
 }
+
