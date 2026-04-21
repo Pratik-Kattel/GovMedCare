@@ -1,14 +1,12 @@
 package com.govmedcare.service;
-
 import com.govmedcare.dao.UserDao;
+import com.govmedcare.exception.InvalidCredentialsException;
 import com.govmedcare.exception.UserAlreadyExistsException;
+import com.govmedcare.exception.UserDoesNotExistsException;
 import com.govmedcare.model.User;
 import com.govmedcare.types.UserRole;
 import com.govmedcare.types.UserStatus;
-import com.govmedcare.validator.UserValidator;
 import org.mindrot.jbcrypt.BCrypt;
-
-import java.sql.SQLException;
 
 public class AuthService {
     UserDao userDao=new UserDao();
@@ -20,8 +18,17 @@ public class AuthService {
         final String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword(hashedPassword);
         user.setRole(UserRole.PATIENT);
-        user.setStatus(UserStatus.ACTIVE);
+        user.setStatus(UserStatus.active);
         return userDao.saveUser(user);
+    }
+    public User LoginUserService(String email,String password){
+        User existingUser=userDao.findByEmail(email).orElseThrow(()->new UserDoesNotExistsException("User with this email doesn't exists please register to continue"));
+        boolean validPassword=BCrypt.checkpw(password,existingUser.getPassword());
+        if(!validPassword){
+            throw new InvalidCredentialsException("Invalid Credentials provided");
+        }
+        existingUser.setPassword(null);
+        return existingUser;
     }
 }
 

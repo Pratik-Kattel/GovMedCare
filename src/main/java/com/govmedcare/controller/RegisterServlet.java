@@ -3,7 +3,6 @@ import com.govmedcare.exception.UserAlreadyExistsException;
 import com.govmedcare.model.User;
 import com.govmedcare.service.AuthService;
 import com.govmedcare.validator.UserValidator;
-import com.mysql.cj.Session;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -11,7 +10,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -39,8 +37,6 @@ public class RegisterServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String phone = request.getParameter("phone");
-
-
         String address = request.getParameter("address");
         try{
         User user = new User(name, email, address, phone, password);
