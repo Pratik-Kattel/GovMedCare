@@ -5,6 +5,7 @@ import com.govmedcare.utils.DBConnection;
 import com.govmedcare.utils.QueryUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,9 +26,7 @@ public class MedicineDao implements MedicineRepository {
             ps.setString(6, medicine.getImageURL());
 
             int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
-                return true;
-            }
+          return rowsAffected>0;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Medicine not saved", e.getMessage());
         }
@@ -37,9 +36,11 @@ public class MedicineDao implements MedicineRepository {
     @Override
     public boolean existByName(String name) {
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(QueryUtil.checkByName);
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.checkByName)
         ) {
             ps.setString(1, name);
+            ResultSet rs= ps.executeQuery();
+            return rs.next();
 
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query not executed", e.getMessage());

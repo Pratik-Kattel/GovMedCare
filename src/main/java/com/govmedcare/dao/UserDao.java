@@ -19,7 +19,7 @@ public class UserDao implements UserRepository {
     @Override
     public boolean saveUser(User user) {
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(QueryUtil.saveUser);
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.saveUser)
         ) {
             ps.setString(1, user.getName());
             ps.setString(2, user.getEmail());
@@ -29,10 +29,7 @@ public class UserDao implements UserRepository {
             ps.setString(6, user.getAddress());
 
             int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
-                return true;
-            }
-            return false;
+            return rowsAffected > 0;
 
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "User not saved", e.getMessage());
@@ -43,7 +40,7 @@ public class UserDao implements UserRepository {
     @Override
     public boolean checkByEmail(String email) {
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(QueryUtil.checkByEmail);
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.checkByEmail)
         ) {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
