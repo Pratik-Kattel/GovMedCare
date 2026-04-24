@@ -44,16 +44,19 @@ public class RegisterServlet extends HttpServlet {
         boolean isRegistered = authService.registerUserService(user);
         if(isRegistered){
             request.setAttribute("success","Registration successful please login to continue");
-            request.getRequestDispatcher("/views/register.jsp").forward(request,response);
+            String contextPath=request.getContextPath();
+            response.sendRedirect(contextPath+"/login");
         }
         else {
-            request.setAttribute("error","Internal error occurred, please try again");
-            request.getRequestDispatcher("views/register.jsp").forward(request,response);
+            request.setAttribute("error", "Internal error occurred, please try again");
+            String contextPath = request.getContextPath();
+            response.sendRedirect(contextPath + "/register");
         }
     }
         catch (IllegalArgumentException | UserAlreadyExistsException e){
             request.setAttribute("error",e.getMessage());
-            request.getRequestDispatcher("/views/register.jsp").forward(request,response);
+            String contextPath = request.getContextPath();
+            response.sendRedirect(contextPath + "/register");
         }
     }
 }

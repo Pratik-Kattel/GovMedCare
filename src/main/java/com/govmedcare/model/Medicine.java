@@ -14,6 +14,15 @@ public class Medicine {
     private Timestamp created_at;
     private String imageURL;
 
+    public Medicine(String name, String description, double price, int quantity, String imageURL,Long category_id) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.imageURL = imageURL;
+        this.category_id=category_id;
+    }
+
     public Medicine(){}
 
     public Medicine(String name, String description, double price, int quantity, long category_id, boolean is_verified,String imageURL) {

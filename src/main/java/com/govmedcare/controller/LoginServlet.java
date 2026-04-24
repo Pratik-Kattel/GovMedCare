@@ -49,7 +49,8 @@ public class LoginServlet extends HttpServlet {
             newSession.setAttribute("loggedInUser", user);
 
             request.setAttribute("success", "Login successful");
-            request.getRequestDispatcher("/views/login.jsp").forward(request, response);
+            String contextPath=request.getContextPath();
+            response.sendRedirect(contextPath+"/medicine");
 
         } catch (IllegalArgumentException | InvalidCredentialsException | UserDoesNotExistsException |
                  UserBlockedException e) {
