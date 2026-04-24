@@ -29,6 +29,7 @@ public class MedicineDao implements MedicineRepository {
           return rowsAffected>0;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Medicine not saved", e.getMessage());
+            System.out.println(e.getMessage());
         }
         return false;
     }
