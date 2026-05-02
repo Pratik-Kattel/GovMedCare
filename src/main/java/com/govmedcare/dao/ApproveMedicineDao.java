@@ -1,6 +1,6 @@
 package com.govmedcare.dao;
 import com.govmedcare.model.Medicine;
-import com.govmedcare.repository.AdminMedicineRepository;
+import com.govmedcare.repository.ApproveMedicineRepository;
 import com.govmedcare.utils.DBConnection;
 import com.govmedcare.utils.QueryUtil;
 import java.sql.Connection;
@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AdminMedicineDao implements AdminMedicineRepository {
-    Logger logger=Logger.getLogger(AdminMedicineDao.class.getName());
+public class ApproveMedicineDao implements ApproveMedicineRepository {
+    Logger logger=Logger.getLogger(ApproveMedicineDao.class.getName());
 
     @Override
     public List<Medicine> getPendingMedicines() {
