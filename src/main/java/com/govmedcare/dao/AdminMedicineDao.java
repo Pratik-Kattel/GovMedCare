@@ -1,76 +1,72 @@
 package com.govmedcare.dao;
-
 import com.govmedcare.model.Medicine;
 import com.govmedcare.repository.AdminMedicineRepository;
-
+import com.govmedcare.utils.DBConnection;
+import com.govmedcare.utils.QueryUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AdminMedicineDao implements AdminMedicineRepository {
+    Logger logger=Logger.getLogger(AdminMedicineDao.class.getName());
 
-    private Connection conn;
-
-    public AdminMedicineDao(Connection conn) {
-        this.conn = conn;
-    }
-
-    //  Get all unverified medicines
     @Override
     public List<Medicine> getPendingMedicines() {
-        List<Medicine> list = new ArrayList<>();
-        String sql = "SELECT * FROM medicine WHERE is_verified = false";
-
-        try (PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                Medicine med = new Medicine();
-                med.setMedicineID(rs.getInt("id"));
-                med.setName(rs.getString("name"));
-                med.setIs_verified(rs.getBoolean("is_verified"));
-
-                list.add(med);
+        List<Medicine> list=new ArrayList<>();
+        try(Connection conn= DBConnection.getConnection();
+            PreparedStatement ps=conn.prepareStatement(QueryUtil.getPendingMedicines)
+        ){
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                Medicine medicine=new Medicine();
+                medicine.setMedicineID(rs.getLong("medicine_id"));
+                medicine.setName(rs.getString("name"));
+                medicine.setDescription(rs.getString("description"));
+                medicine.setPrice(rs.getDouble("price"));
+                medicine.setCreated_at(rs.getTimestamp("created_at"));
+                medicine.setImageURL(rs.getString("image_url"));
+                medicine.setQuantity(rs.getInt("quantity"));
+                list.add(medicine);
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
+         catch (SQLException e) {
+            logger.log(Level.SEVERE,"Failed to get pending medicines",e.getMessage());
+        }
         return list;
     }
 
-    // Approve medicine (set is_verified = true)
     @Override
     public boolean approveMedicine(int id) {
-        String sql = "UPDATE medicine SET is_verified = true WHERE id = ?";
-
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            return ps.executeUpdate() > 0;
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        try(Connection conn=DBConnection.getConnection();
+        PreparedStatement ps=conn.prepareStatement(QueryUtil.validateMedicines)
+        ){
+            ps.setInt(1,id);
+            int rows =ps.executeUpdate();
+            if(rows>0) return true;
         }
-
+        catch (SQLException e){
+            logger.log(Level.SEVERE,"Failed to approve medicine",e.getMessage());
+        }
         return false;
+
     }
 
-    //  Delete / Reject medicine
     @Override
     public boolean deleteMedicine(int id) {
-        String sql = "DELETE FROM medicine WHERE id = ?";
-
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            return ps.executeUpdate() > 0;
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        try(Connection conn=DBConnection.getConnection();
+        PreparedStatement ps=conn.prepareStatement(QueryUtil.deleteMedicine)
+        ){
+            ps.setInt(1,id);
+            int rows=ps.executeUpdate();
+            if(rows>0) return true;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE,"Failed to delete medicine",e.getMessage());
         }
-
         return false;
     }
 }
