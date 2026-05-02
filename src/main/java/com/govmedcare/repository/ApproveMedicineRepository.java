@@ -3,7 +3,7 @@ package com.govmedcare.repository;
 import com.govmedcare.model.Medicine;
 import java.util.List;
 
-public interface AdminMedicineRepository {
+public interface ApproveMedicineRepository {
 
     List<Medicine> getPendingMedicines();
 
