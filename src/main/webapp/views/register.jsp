@@ -266,7 +266,7 @@
             transform: translateY(0);
         }
 
-        /* ── Footer link ── */
+        /* Footer link */
         .form-footer {
             margin-top: 24px;
             text-align: center;
@@ -279,6 +279,18 @@
             font-weight: 600;
             text-decoration: none;
             transition: opacity 0.2s;
+        }
+        .input-field textarea {
+            height: 44px;
+            padding: 12px 16px;
+            border: 1.8px solid var(--gray-border);
+            border-radius: var(--radius);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14.5px;
+            color: var(--text-dark);
+            background: var(--gray-soft);
+            outline: none;
+            resize: none;
         }
 
         .form-footer a:hover {
@@ -337,13 +349,25 @@
             <!-- Full Name Field -->
             <div class="input-field">
                 <label for="fullname">Full Name</label>
-                <input type="text" id="fullname" name="fullname" placeholder="e.g. Nisha Mehta" required>
+                <input type="text" id="fullname" name="fullname" placeholder="GovMedCare" required>
             </div>
 
             <!-- Email Field -->
             <div class="input-field">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="nishameheta@gmail.com" required>
+                <input type="email" id="email" name="email" placeholder="govmedcare@gmail.com" required>
+            </div>
+
+            <!-- Phone Field -->
+            <div class="input-field">
+                <label for="phone">Phone Number</label>
+                <textarea id="phone" name="phone" rows="1" placeholder="e.g. 98XXXXXXXX" required></textarea>
+            </div>
+
+            <!-- Address Field -->
+            <div class="input-field">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" rows="1" placeholder="Enter your address" required></textarea>
             </div>
 
             <!-- Password Field -->
