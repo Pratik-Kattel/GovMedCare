@@ -1,12 +1,10 @@
 package com.govmedcare.dao;
-
 import com.govmedcare.model.User;
 import com.govmedcare.repository.UserRepository;
 import com.govmedcare.types.UserRole;
 import com.govmedcare.types.UserStatus;
 import com.govmedcare.utils.DBConnection;
 import com.govmedcare.utils.QueryUtil;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
