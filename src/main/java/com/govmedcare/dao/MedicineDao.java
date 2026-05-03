@@ -55,7 +55,7 @@ public class MedicineDao implements MedicineRepository {
     public List<Medicine> getAllMedicine() {
         List<Medicine> list=new ArrayList<>();
         try(Connection conn=DBConnection.getConnection();
-            PreparedStatement ps=conn.prepareStatement(QueryUtil.getVerifiedMedicines)
+            PreparedStatement ps=conn.prepareStatement(QueryUtil.getAllMedicineAndCategory)
         ){
             ResultSet rs=ps.executeQuery();
             while (rs.next()){
@@ -67,12 +67,42 @@ public class MedicineDao implements MedicineRepository {
                 medicine.setImageURL(rs.getString("image_url"));
                 medicine.setCreated_at(rs.getTimestamp("created_at"));
                 medicine.setName(rs.getString("name"));
+                medicine.setCategory_name(rs.getString("category_name"));
                 list.add(medicine);
             }
 
         }
         catch (SQLException e){
             logger.log(Level.SEVERE,"Failed to get medicines",e.getMessage());
+        }
+        return list;
+    }
+
+    @Override
+    public List<Medicine> getAllMedicineByCategory(Long category_id) {
+        List<Medicine> list=new ArrayList<>();
+        try(Connection conn=DBConnection.getConnection();
+        PreparedStatement ps=conn.prepareStatement(QueryUtil.getMedicinesByCategory)
+        ){
+            ps.setLong(1,category_id);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                Medicine medicine = new Medicine();
+
+                medicine.setMedicineID(rs.getLong("medicine_id"));
+                medicine.setName(rs.getString("name"));
+                medicine.setDescription(rs.getString("description"));
+                medicine.setPrice(rs.getDouble("price"));
+                medicine.setQuantity(rs.getInt("quantity"));
+                medicine.setImageURL(rs.getString("image_url"));
+                medicine.setCategory_name(rs.getString("category_name"));
+
+                list.add(medicine);
+            }
+
+        }
+        catch (SQLException e){
+            logger.log(Level.SEVERE,"Failed to fetch medicine by category",e.getMessage());
         }
         return list;
     }

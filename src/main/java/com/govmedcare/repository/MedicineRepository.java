@@ -8,4 +8,5 @@ public interface MedicineRepository {
     boolean SaveMedicine(Medicine medicine);
     boolean existByName(String name);
     List<Medicine> getAllMedicine();
+    List<Medicine> getAllMedicineByCategory(Long category_id);
 }
