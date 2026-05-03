@@ -9,7 +9,7 @@
 
 <html>
 <head>
-    <title>Login - MediCare</title>
+    <title>Register - MediCare</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
     <style>
@@ -52,7 +52,7 @@
         .page-wrapper {
             display: flex;
             width: 900px;
-            min-height: 520px;
+            min-height: 560px;
             background: var(--white);
             border-radius: 24px;
             box-shadow: var(--shadow);
@@ -100,25 +100,21 @@
         }
 
         .brand {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start; /* keep left aligned */
+            position: relative;
+            z-index: 1;
         }
-
 
         .brand-icon {
-            width: 90px;
-            height: 90px;
-            background: none;
-            margin-bottom: 12px;
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            font-size: 22px;
         }
-
-        .brand-icon img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-        }
-
 
         .brand-name {
             font-family: 'Playfair Display', serif;
@@ -130,10 +126,41 @@
 
         .brand-tagline {
             margin-top: 10px;
-            font-size: 14px;
+            font-size: 13.5px;
             color: rgba(255,255,255,0.65);
             line-height: 1.6;
         }
+
+        .panel-features {
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .feature-dot {
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+
+        .feature-text {
+            font-size: 13px;
+            color: rgba(255,255,255,0.80);
+            line-height: 1.4;
+        }
+
         /* ── Right Panel (form) ── */
         .right-panel {
             flex: 1;
@@ -212,8 +239,8 @@
             color: #b0c4ba;
         }
 
-        /* ── Login Button ── */
-        .btn-login {
+        /* ── Register Button ── */
+        .btn-register {
             margin-top: 6px;
             padding: 14px;
             background: linear-gradient(135deg, var(--green-accent) 0%, var(--green-primary) 100%);
@@ -229,59 +256,19 @@
             box-shadow: 0 4px 16px rgba(46,125,82,0.28);
         }
 
-        .btn-login:hover {
+        .btn-register:hover {
             opacity: 0.92;
             transform: translateY(-1px);
             box-shadow: 0 6px 20px rgba(46,125,82,0.34);
         }
 
-        .btn-login:active {
+        .btn-register:active {
             transform: translateY(0);
-        }
-
-        /* ── Divider ── */
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-muted);
-            font-size: 12.5px;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--gray-border);
-        }
-
-        /* ── Register CTA button ── */
-        .btn-register-outline {
-            padding: 13px;
-            background: transparent;
-            border: 1.8px solid var(--gray-border);
-            border-radius: var(--radius);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14.5px;
-            font-weight: 600;
-            color: var(--green-primary);
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            display: block;
-            transition: background 0.2s, border-color 0.2s, transform 0.15s;
-        }
-
-        .btn-register-outline:hover {
-            background: var(--green-light);
-            border-color: var(--green-mid);
-            transform: translateY(-1px);
         }
 
         /* ── Footer link ── */
         .form-footer {
-            margin-top: 8px;
+            margin-top: 24px;
             text-align: center;
             font-size: 13.5px;
             color: var(--text-muted);
@@ -303,7 +290,7 @@
         @media (max-width: 700px) {
             .page-wrapper  { flex-direction: column; width: 95%; }
             .left-panel    { width: 100%; padding: 36px 28px 28px; }
-            .panel-quote   { display: none; }
+            .panel-features { display: none; }
             .right-panel   { padding: 36px 28px; }
         }
     </style>
@@ -322,9 +309,9 @@
     <div class="left-panel">
         <div class="brand">
 
-<%--            <div class="brand-icon">--%>
-<%--                <img src="${pageContext.request.contextPath}assest/logo.png" alt="Logo">--%>
-<%--            </div>--%>
+            <%--            <div class="brand-icon">--%>
+            <%--                <img src="${pageContext.request.contextPath}assest/logo.png" alt="Logo">--%>
+            <%--            </div>--%>
 
             <div class="brand-name">MediCare</div>
             <p class="brand-tagline">Your Health, Our Responsibility.<br>"The Ministry of Health & Population of Nepal".</p>
@@ -335,8 +322,8 @@
     <div class="right-panel">
 
         <div class="form-header">
-            <h2>Welcome Back</h2>
-            <p>Sign in to your MediCare account</p>
+            <h2>Create an Account</h2>
+            <p>Join MediCare to manage your health records</p>
         </div>
 
         <!-- Display error message if any -->
@@ -344,33 +331,37 @@
         <div class="error-message">⚠️ <%= errorMessage %></div>
         <% } %>
 
-        <!-- Login Form -->
-        <form method="post" action="login">
+        <!-- Registration Form -->
+        <form method="post" action="register">
+
+            <!-- Full Name Field -->
+            <div class="input-field">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" name="fullname" placeholder="e.g. Nisha Mehta" required>
+            </div>
 
             <!-- Email Field -->
             <div class="input-field">
-                <label for="email">Gmail / Email Address</label>
-                <input type="email" id="email" name="email" placeholder="sumitpkhrl@gmail.com" required>
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="nishameheta@gmail.com" required>
             </div>
 
             <!-- Password Field -->
             <div class="input-field">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="password" required>
+                <input type="password" id="password" name="password" placeholder="Create a strong password" required>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="btn-login">Sign In</button>
+            <button type="submit" class="btn-register">Register</button>
 
         </form>
 
-        <!-- Divider -->
-        <div class="divider" style="margin-top: 22px;">or</div>
+        <!-- Login redirect -->
+        <p class="form-footer">
+            Already have an account? <a href="login.jsp">Sign in here</a>
+        </p>
 
-        <!-- Register CTA -->
-        <a href="register.jsp" class="btn-register-outline" style="margin-top: 14px;">
-            New to MediCare? Register here
-        </a>
     </div>
 </div>
 
