@@ -47,10 +47,10 @@ public class LoginServlet extends HttpServlet {
             }
             HttpSession newSession = request.getSession(true);
             newSession.setAttribute("loggedInUser", user);
-
+            newSession.setAttribute("role",user.getRole());
             request.setAttribute("success", "Login successful");
             String contextPath=request.getContextPath();
-            response.sendRedirect(contextPath+"/medicine");
+            response.sendRedirect(contextPath+"/supplier/medicine");
 
         } catch (IllegalArgumentException | InvalidCredentialsException | UserDoesNotExistsException |
                  UserBlockedException e) {
