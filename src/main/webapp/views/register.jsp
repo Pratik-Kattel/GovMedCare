@@ -52,7 +52,7 @@
         .page-wrapper {
             display: flex;
             width: 900px;
-            min-height: 560px;
+            min-height: 500px;
             background: var(--white);
             border-radius: 24px;
             box-shadow: var(--shadow);
@@ -131,47 +131,18 @@
             line-height: 1.6;
         }
 
-        .panel-features {
-            position: relative;
-            z-index: 1;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 18px;
-        }
-
-        .feature-dot {
-            width: 32px;
-            height: 32px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 50%;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-        }
-
-        .feature-text {
-            font-size: 13px;
-            color: rgba(255,255,255,0.80);
-            line-height: 1.4;
-        }
 
         /* ── Right Panel (form) ── */
         .right-panel {
             flex: 1;
-            padding: 52px 48px;
+            padding: 40px 38px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
         .form-header {
-            margin-bottom: 32px;
+            margin-bottom: 15px;
         }
 
         .form-header h2 {
@@ -191,17 +162,17 @@
             background: #fdecea;
             border-left: 4px solid var(--error-red);
             border-radius: 8px;
-            padding: 12px 16px;
+            padding: 10px 14px;
             font-size: 13.5px;
             color: var(--error-red);
-            margin-bottom: 22px;
+            margin-bottom: 15px;
         }
 
         /* ── Form Elements ── */
         form {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
 
         .input-field {
@@ -241,7 +212,7 @@
 
         /* ── Register Button ── */
         .btn-register {
-            margin-top: 6px;
+            margin-top: 4px;
             padding: 14px;
             background: linear-gradient(135deg, var(--green-accent) 0%, var(--green-primary) 100%);
             color: var(--white);
@@ -268,7 +239,7 @@
 
         /* Footer link */
         .form-footer {
-            margin-top: 24px;
+            margin-top: 15px;
             text-align: center;
             font-size: 13.5px;
             color: var(--text-muted);
@@ -279,18 +250,6 @@
             font-weight: 600;
             text-decoration: none;
             transition: opacity 0.2s;
-        }
-        .input-field textarea {
-            height: 44px;
-            padding: 12px 16px;
-            border: 1.8px solid var(--gray-border);
-            border-radius: var(--radius);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14.5px;
-            color: var(--text-dark);
-            background: var(--gray-soft);
-            outline: none;
-            resize: none;
         }
 
         .form-footer a:hover {
@@ -311,7 +270,6 @@
 <body>
 
 <%
-    // Retrieve error message from request (set by servlet)
     String errorMessage = (String) request.getAttribute("error");
 %>
 
@@ -361,13 +319,13 @@
             <!-- Phone Field -->
             <div class="input-field">
                 <label for="phone">Phone Number</label>
-                <textarea id="phone" name="phone" rows="1" placeholder="e.g. 98XXXXXXXX" required></textarea>
+                <input type="text" id="phone" name="phone" placeholder="98XXXXXXXX" required>
             </div>
 
             <!-- Address Field -->
             <div class="input-field">
                 <label for="address">Address</label>
-                <textarea id="address" name="address" rows="1" placeholder="Enter your address" required></textarea>
+                <input type="text" id="address" name="address" placeholder="Nepal" required>
             </div>
 
             <!-- Password Field -->
