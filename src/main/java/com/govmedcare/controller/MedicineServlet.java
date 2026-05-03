@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "Medicine", value = "/medicine")
+@WebServlet(name = "Medicine", value = "/supplier/medicine")
 public class MedicineServlet extends HttpServlet {
     private MedicineService saveMedicineService;
     private CategoryDao categoryDao;
@@ -55,12 +55,12 @@ public class MedicineServlet extends HttpServlet {
             if(saveMedicine){
                 request.setAttribute("success","Medicine saved successfully");
                 String contextPath = request.getContextPath();
-                response.sendRedirect(contextPath + "/medicine");
+                response.sendRedirect(contextPath + "/supplier/medicine");
             }
             else{
                 request.setAttribute("Failed","Failed to save the medicine");
                 String contextPath = request.getContextPath();
-                response.sendRedirect(contextPath + "/medicine");
+                response.sendRedirect(contextPath + "/supplier/medicine");
             }
 
         } catch (IllegalArgumentException | MedicineAlreadyExistsException e) {
