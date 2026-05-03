@@ -33,7 +33,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher("/views/register.jsp");
-        String name = request.getParameter("name");
+        String name = request.getParameter("fullname");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String phone = request.getParameter("phone");
@@ -49,14 +49,12 @@ public class RegisterServlet extends HttpServlet {
         }
         else {
             request.setAttribute("error", "Internal error occurred, please try again");
-            String contextPath = request.getContextPath();
-            response.sendRedirect(contextPath + "/register");
+            request.getRequestDispatcher("/views/register.jsp").forward(request, response);
         }
     }
         catch (IllegalArgumentException | UserAlreadyExistsException e){
             request.setAttribute("error",e.getMessage());
-            String contextPath = request.getContextPath();
-            response.sendRedirect(contextPath + "/register");
+            request.getRequestDispatcher("/views/register.jsp").forward(request, response);
         }
     }
 }
