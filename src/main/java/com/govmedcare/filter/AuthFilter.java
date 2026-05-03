@@ -1,5 +1,4 @@
 package com.govmedcare.filter;
-
 import com.govmedcare.types.UserRole;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
