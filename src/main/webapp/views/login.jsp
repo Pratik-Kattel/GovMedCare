@@ -9,9 +9,9 @@
 
 <html>
 <head>
-    <title>Login - MediCare</title>
+    <title>Login - GovMedCare</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="<%= request.getContextPath()%>/CSS/login">
     <style>
         /* ── CSS Variables ── */
         :root {
@@ -326,7 +326,7 @@
 <%--                <img src="${pageContext.request.contextPath}assest/logo.png" alt="Logo">--%>
 <%--            </div>--%>
 
-            <div class="brand-name">MediCare</div>
+            <div class="brand-name">GovMedCare</div>
             <p class="brand-tagline">Your Health, Our Responsibility.<br>"The Ministry of Health & Population of Nepal".</p>
         </div>
     </div>
@@ -336,7 +336,7 @@
 
         <div class="form-header">
             <h2>Welcome Back</h2>
-            <p>Sign in to your MediCare account</p>
+            <p>Sign in to your GovMedCare account</p>
         </div>
 
         <!-- Display error message if any -->
@@ -367,10 +367,10 @@
         <!-- Divider -->
         <div class="divider" style="margin-top: 22px;">or</div>
 
-        <!-- Register CTA -->
-        <a href="<%=request.getContextPath()%>/register" class="btn-register-outline" style="margin-top: 14px;">
-            New to MediCare? Register here
-        </a>
+        <p class="form-footer">
+            New to GovMedCare?  <a href="<%= request.getContextPath()%>/register">Register here</a>
+        </p>
+
     </div>
 </div>
 
