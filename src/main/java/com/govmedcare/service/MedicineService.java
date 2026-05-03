@@ -1,9 +1,7 @@
 package com.govmedcare.service;
-
 import com.govmedcare.dao.MedicineDao;
 import com.govmedcare.exception.MedicineAlreadyExistsException;
 import com.govmedcare.model.Medicine;
-
 import java.util.List;
 
 public class MedicineService {
@@ -23,6 +21,15 @@ public class MedicineService {
         }
         catch (Exception e){
             throw new RuntimeException("Unable to fetch the medicines");
+        }
+    }
+    public List<Medicine> getAllMedicineByCategory(Long category_id){
+        if(category_id==null || category_id<=0) throw new IllegalArgumentException("Invalid category id");
+        try{
+            return medicineDao.getAllMedicineByCategory(category_id);
+        }
+        catch (Exception e){
+            throw new RuntimeException("Unable to fetch the medicines by category");
         }
     }
 }

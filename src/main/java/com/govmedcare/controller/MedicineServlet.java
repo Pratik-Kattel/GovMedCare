@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "Medicine", value = "/supplier/medicine")
 public class MedicineServlet extends HttpServlet {
@@ -27,14 +28,29 @@ public class MedicineServlet extends HttpServlet {
         this.categoryDao=new CategoryDao();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("categories", categoryDao.getAllCategory());
-        RequestDispatcher rd = request.getRequestDispatcher("/views/medicine.jsp");
-        rd.forward(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+        request.setAttribute("categories", categoryDao.getAllCategory());
+
+        String categoryId = request.getParameter("category_id");
+
+        List<Medicine> medicines;
+
+        if (categoryId != null && !categoryId.isEmpty()) {
+            Long id = Long.parseLong(categoryId);
+            medicines = saveMedicineService.getAllMedicineByCategory(id);
+        } else {
+            medicines = saveMedicineService.getAllMedicines();
+        }
+
+        request.setAttribute("medicines", medicines);
+
+        request.getRequestDispatcher("/views/medicine.jsp")
+                .forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException {
         final String name = request.getParameter("medicineName");
         final String description = request.getParameter("description");
         final int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -53,9 +69,8 @@ public class MedicineServlet extends HttpServlet {
             MedicineValidator.validateMedicine(medicine);
             boolean saveMedicine=saveMedicineService.saveMedicineService(medicine, loggedInUser.getId());
             if(saveMedicine){
-                request.setAttribute("success","Medicine saved successfully");
-                String contextPath = request.getContextPath();
-                response.sendRedirect(contextPath + "/supplier/medicine");
+                request.getSession().setAttribute("success", "Medicine saved successfully");
+                response.sendRedirect(request.getContextPath() + "/supplier/medicine");
             }
             else{
                 request.setAttribute("Failed","Failed to save the medicine");
@@ -64,7 +79,10 @@ public class MedicineServlet extends HttpServlet {
             }
 
         } catch (IllegalArgumentException | MedicineAlreadyExistsException e) {
-            request.setAttribute("Error",e.getMessage());
+            request.setAttribute("error", e.getMessage());
+            request.setAttribute("categories", categoryDao.getAllCategory());
+            request.getRequestDispatcher("/views/medicine.jsp")
+                    .forward(request, response);
         }
     }
 

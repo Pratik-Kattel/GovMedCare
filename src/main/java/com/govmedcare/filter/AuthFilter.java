@@ -28,14 +28,13 @@ public class AuthFilter implements Filter {
         boolean isAdminPage = uri.startsWith(contextPath + "/admin");
         boolean isSupplierPage=uri.startsWith(contextPath+"/supplier");
 
+        if (!isLoggedIn && !isAuthPage) {
+            resp.sendRedirect(contextPath + "/login");
+            return;
+        }
         if (isLoggedIn && isAuthPage) {
             resp.sendRedirect(contextPath+"/");
             return;
-        }
-        if (isLoggedIn || isAuthPage) {
-            chain.doFilter(request, response);
-        } else {
-            resp.sendRedirect(contextPath+"/login");
         }
         if (isLoggedIn && isAdminPage && !UserRole.ADMIN.name().equals(role)) {
             resp.sendRedirect(contextPath + "/unauthorized");
@@ -45,6 +44,7 @@ public class AuthFilter implements Filter {
             resp.sendRedirect(contextPath + "/unauthorized");
             return;
         }
+        chain.doFilter(request, response);
     }
 
     @Override
