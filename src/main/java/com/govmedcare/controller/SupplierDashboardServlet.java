@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Dashboard", value = "/admin/dashboard")
+@WebServlet(name = "Dashboard", value = "/supplier/dashboard")
 public class SupplierDashboardServlet extends HttpServlet {
 
     private MedicineService medicineService;
