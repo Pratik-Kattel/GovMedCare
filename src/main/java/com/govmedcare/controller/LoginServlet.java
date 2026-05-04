@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
             newSession.setAttribute("role",user.getRole());
             request.setAttribute("success", "Login successful");
             String contextPath=request.getContextPath();
-            response.sendRedirect(contextPath+"/supplier/medicine");
+            response.sendRedirect(contextPath+"/supplier/dashboard");
 
         } catch (IllegalArgumentException | InvalidCredentialsException | UserDoesNotExistsException |
                  UserBlockedException e) {

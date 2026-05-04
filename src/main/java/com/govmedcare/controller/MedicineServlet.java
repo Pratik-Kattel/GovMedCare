@@ -17,7 +17,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "Medicine", value = "/supplier/medicine")
+@WebServlet(name = "Medicine", value = "/supplier/medicines")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10,       // 10MB
@@ -61,9 +61,9 @@ public class MedicineServlet extends HttpServlet {
         final String description = request.getParameter("description");
         final int quantity = Integer.parseInt(request.getParameter("quantity"));
         final double price = Double.parseDouble(request.getParameter("price"));
-        Part imagePart=request.getPart("image");
-        String uploadPath = getServletContext().getRealPath("") + "uploads";
-        String imageURL = ImageUpload.saveImage(imagePart, uploadPath);
+        Part   imagePart  = request.getPart("image");
+        String uploadPath = getServletContext().getRealPath("/") + "uploads";
+        String imageURL   = ImageUpload.saveImage(imagePart, uploadPath);
         final Long category_id = Long.parseLong(request.getParameter("category_id"));
         try {
             Medicine medicine = new Medicine(name, description, price, quantity, imageURL, category_id);
@@ -77,8 +77,8 @@ public class MedicineServlet extends HttpServlet {
             MedicineValidator.validateMedicine(medicine);
             boolean saveMedicine = saveMedicineService.saveMedicineService(medicine, loggedInUser.getId());
             if (saveMedicine) {
-                request.getSession().setAttribute("success", "Medicine saved successfully");
-                response.sendRedirect(request.getContextPath() + "/supplier/medicine");
+                request.getSession().setAttribute("success", "Medicine and image uploaded successfully");
+                response.sendRedirect(request.getContextPath() + "/supplier/medicines/add");
             } else {
                 request.setAttribute("Failed", "Failed to save the medicine");
                 String contextPath = request.getContextPath();
@@ -88,8 +88,7 @@ public class MedicineServlet extends HttpServlet {
         } catch (IllegalArgumentException | MedicineAlreadyExistsException e) {
             request.setAttribute("error", e.getMessage());
             request.setAttribute("categories", categoryDao.getAllCategory());
-            request.getRequestDispatcher("/views/medicine.jsp")
-                    .forward(request, response);
+            request.getRequestDispatcher("/views/add-medicine.jsp").forward(request, response);
         }
     }
 
