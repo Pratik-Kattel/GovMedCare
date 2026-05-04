@@ -52,7 +52,7 @@
         .page-wrapper {
             display: flex;
             width: 900px;
-            min-height: 560px;
+            min-height: 500px;
             background: var(--white);
             border-radius: 24px;
             box-shadow: var(--shadow);
@@ -131,47 +131,18 @@
             line-height: 1.6;
         }
 
-        .panel-features {
-            position: relative;
-            z-index: 1;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 18px;
-        }
-
-        .feature-dot {
-            width: 32px;
-            height: 32px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 50%;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-        }
-
-        .feature-text {
-            font-size: 13px;
-            color: rgba(255,255,255,0.80);
-            line-height: 1.4;
-        }
 
         /* ── Right Panel (form) ── */
         .right-panel {
             flex: 1;
-            padding: 52px 48px;
+            padding: 40px 38px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
         .form-header {
-            margin-bottom: 32px;
+            margin-bottom: 15px;
         }
 
         .form-header h2 {
@@ -191,17 +162,17 @@
             background: #fdecea;
             border-left: 4px solid var(--error-red);
             border-radius: 8px;
-            padding: 12px 16px;
+            padding: 10px 14px;
             font-size: 13.5px;
             color: var(--error-red);
-            margin-bottom: 22px;
+            margin-bottom: 15px;
         }
 
         /* ── Form Elements ── */
         form {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
 
         .input-field {
@@ -241,7 +212,7 @@
 
         /* ── Register Button ── */
         .btn-register {
-            margin-top: 6px;
+            margin-top: 4px;
             padding: 14px;
             background: linear-gradient(135deg, var(--green-accent) 0%, var(--green-primary) 100%);
             color: var(--white);
@@ -266,9 +237,9 @@
             transform: translateY(0);
         }
 
-        /* ── Footer link ── */
+        /* Footer link */
         .form-footer {
-            margin-top: 24px;
+            margin-top: 15px;
             text-align: center;
             font-size: 13.5px;
             color: var(--text-muted);
@@ -299,7 +270,6 @@
 <body>
 
 <%
-    // Retrieve error message from request (set by servlet)
     String errorMessage = (String) request.getAttribute("error");
 %>
 
@@ -337,13 +307,25 @@
             <!-- Full Name Field -->
             <div class="input-field">
                 <label for="fullname">Full Name</label>
-                <input type="text" id="fullname" name="fullname" placeholder="e.g. Nisha Mehta" required>
+                <input type="text" id="fullname" name="fullname" placeholder="GovMedCare" required>
             </div>
 
             <!-- Email Field -->
             <div class="input-field">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="nishameheta@gmail.com" required>
+                <input type="email" id="email" name="email" placeholder="govmedcare@gmail.com" required>
+            </div>
+
+            <!-- Phone Field -->
+            <div class="input-field">
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phone" placeholder="98XXXXXXXX" required>
+            </div>
+
+            <!-- Address Field -->
+            <div class="input-field">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" placeholder="Nepal" required>
             </div>
 
             <!-- Password Field -->

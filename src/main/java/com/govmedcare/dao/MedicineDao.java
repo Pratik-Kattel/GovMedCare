@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,5 +49,61 @@ public class MedicineDao implements MedicineRepository {
             logger.log(Level.SEVERE, "Query not executed", e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public List<Medicine> getAllMedicine() {
+        List<Medicine> list=new ArrayList<>();
+        try(Connection conn=DBConnection.getConnection();
+            PreparedStatement ps=conn.prepareStatement(QueryUtil.getAllMedicineAndCategory)
+        ){
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                Medicine medicine=new Medicine();
+                medicine.setMedicineID(rs.getLong("medicine_id"));
+                medicine.setQuantity(rs.getInt("quantity"));
+                medicine.setPrice(rs.getDouble("price"));
+                medicine.setDescription(rs.getString("description"));
+                medicine.setImageURL(rs.getString("image_url"));
+                medicine.setCreated_at(rs.getTimestamp("created_at"));
+                medicine.setName(rs.getString("name"));
+                medicine.setCategory_name(rs.getString("category_name"));
+                list.add(medicine);
+            }
+
+        }
+        catch (SQLException e){
+            logger.log(Level.SEVERE,"Failed to get medicines",e.getMessage());
+        }
+        return list;
+    }
+
+    @Override
+    public List<Medicine> getAllMedicineByCategory(Long category_id) {
+        List<Medicine> list=new ArrayList<>();
+        try(Connection conn=DBConnection.getConnection();
+        PreparedStatement ps=conn.prepareStatement(QueryUtil.getMedicinesByCategory)
+        ){
+            ps.setLong(1,category_id);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                Medicine medicine = new Medicine();
+
+                medicine.setMedicineID(rs.getLong("medicine_id"));
+                medicine.setName(rs.getString("name"));
+                medicine.setDescription(rs.getString("description"));
+                medicine.setPrice(rs.getDouble("price"));
+                medicine.setQuantity(rs.getInt("quantity"));
+                medicine.setImageURL(rs.getString("image_url"));
+                medicine.setCategory_name(rs.getString("category_name"));
+
+                list.add(medicine);
+            }
+
+        }
+        catch (SQLException e){
+            logger.log(Level.SEVERE,"Failed to fetch medicine by category",e.getMessage());
+        }
+        return list;
     }
 }
