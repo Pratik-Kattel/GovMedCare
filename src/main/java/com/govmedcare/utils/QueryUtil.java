@@ -13,4 +13,6 @@ public class QueryUtil {
    public static final String blockUser="UPDATE users set status='blocked' WHERE user_id=?";
    public static final String getAllMedicineAndCategory="SELECT m.*, c.name AS category_name FROM medicines m JOIN categories c ON m.category_id = c.category_id;";
    public static final String getMedicinesByCategory = "SELECT m.*, c.name AS category_name FROM medicines m JOIN categories c ON m.category_id = c.category_id WHERE m.category_id = ?";
+   public static final String countPending  = "SELECT COUNT(*) FROM medicines WHERE is_verified = false";
+   public static final String countApproved = "SELECT COUNT(*) FROM medicines WHERE is_verified = true";
 }

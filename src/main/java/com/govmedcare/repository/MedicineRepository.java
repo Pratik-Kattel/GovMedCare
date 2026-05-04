@@ -9,4 +9,6 @@ public interface MedicineRepository {
     boolean existByName(String name);
     List<Medicine> getAllMedicine();
     List<Medicine> getAllMedicineByCategory(Long category_id);
+     int countPendingMedicines();
+     int countApprovedMedicines();
 }
