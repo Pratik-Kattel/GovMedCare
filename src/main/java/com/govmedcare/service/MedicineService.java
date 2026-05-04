@@ -32,4 +32,11 @@ public class MedicineService {
             throw new RuntimeException("Unable to fetch the medicines by category");
         }
     }
+    public int getPendingCount() {
+        return medicineDao.countPendingMedicines();
+    }
+
+    public int getApprovedCount() {
+        return medicineDao.countApprovedMedicines();
+    }
 }
