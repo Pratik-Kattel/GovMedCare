@@ -106,4 +106,33 @@ public class MedicineDao implements MedicineRepository {
         }
         return list;
     }
+
+    @Override
+    public int countPendingMedicines() {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.countPending)) {
+            ResultSet rs = ps.executeQuery();
+            int count = 0;
+            while (rs.next()) count++;
+            return count;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Failed to count pending medicines", e.getMessage());
+        }
+        return 0;
+    }
+
+    @Override
+    public int countApprovedMedicines() {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.countApproved)) {
+            ResultSet rs = ps.executeQuery();
+            int count = 0;
+            while (rs.next()) count++;
+            return count;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Failed to count approved medicines", e.getMessage());
+        }
+        return 0;
+    }
+
 }

@@ -10,4 +10,5 @@ public interface ApproveMedicineRepository {
     boolean approveMedicine(int id);
 
     boolean deleteMedicine(int id);
+
 }
