@@ -15,4 +15,5 @@ public class QueryUtil {
    public static final String getMedicinesByCategory = "SELECT m.*, c.name AS category_name FROM medicines m JOIN categories c ON m.category_id = c.category_id WHERE m.category_id = ?";
    public static final String countPending  = "SELECT COUNT(*) FROM medicines WHERE is_verified = false";
    public static final String countApproved = "SELECT COUNT(*) FROM medicines WHERE is_verified = true";
+   public static final String updateStock="UPDATE medicines set quantity= quantity + ? where medicine_id=?";
 }

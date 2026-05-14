@@ -11,4 +11,5 @@ public interface MedicineRepository {
     List<Medicine> getAllMedicineByCategory(Long category_id);
      int countPendingMedicines();
      int countApprovedMedicines();
+     boolean addStock(int totalMedicine, Medicine medicine);
 }

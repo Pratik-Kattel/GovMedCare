@@ -68,6 +68,7 @@ public class MedicineDao implements MedicineRepository {
                 medicine.setCreated_at(rs.getTimestamp("created_at"));
                 medicine.setName(rs.getString("name"));
                 medicine.setCategory_name(rs.getString("category_name"));
+                medicine.setIs_verified(rs.getBoolean("is_verified"));
                 list.add(medicine);
             }
 
@@ -96,7 +97,7 @@ public class MedicineDao implements MedicineRepository {
                 medicine.setQuantity(rs.getInt("quantity"));
                 medicine.setImageURL(rs.getString("image_url"));
                 medicine.setCategory_name(rs.getString("category_name"));
-
+                medicine.setIs_verified(rs.getBoolean("is_verified"));
                 list.add(medicine);
             }
 
@@ -112,9 +113,9 @@ public class MedicineDao implements MedicineRepository {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(QueryUtil.countPending)) {
             ResultSet rs = ps.executeQuery();
-            int count = 0;
-            while (rs.next()) count++;
-            return count;
+            if(rs.next()){
+                return rs.getInt(1);
+            }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Failed to count pending medicines", e.getMessage());
         }
@@ -126,13 +127,31 @@ public class MedicineDao implements MedicineRepository {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(QueryUtil.countApproved)) {
             ResultSet rs = ps.executeQuery();
-            int count = 0;
-            while (rs.next()) count++;
-            return count;
+            if(rs.next()){
+                return rs.getInt(1);
+            }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Failed to count approved medicines", e.getMessage());
         }
         return 0;
+    }
+
+    @Override
+    public boolean addStock(int totalMedicine, Medicine medicine) {
+        try(Connection conn=DBConnection.getConnection();
+        PreparedStatement ps=conn.prepareStatement(QueryUtil.updateStock)
+        ){
+            ps.setInt(1,totalMedicine);
+            ps.setLong(2,medicine.getMedicineID());
+            int rows_affected=ps.executeUpdate();
+            return rows_affected>0;
+
+        }
+        catch (SQLException e){
+            logger.log(Level.SEVERE,"Unable to add the stock of current medicine");
+
+        }
+        return false;
     }
 
 }

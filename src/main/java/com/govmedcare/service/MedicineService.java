@@ -1,5 +1,6 @@
 package com.govmedcare.service;
 import com.govmedcare.dao.MedicineDao;
+import com.govmedcare.exception.InvalidQuantityException;
 import com.govmedcare.exception.MedicineAlreadyExistsException;
 import com.govmedcare.model.Medicine;
 import java.util.List;
@@ -7,10 +8,13 @@ import java.util.List;
 public class MedicineService {
     MedicineDao medicineDao = new MedicineDao();
 
-    public boolean saveMedicineService(Medicine medicine,Long user_id) {
+    public boolean saveMedicineService(Medicine medicine,Long user_id,int quantity) {
         boolean existsByName = medicineDao.existByName(medicine.getName());
         if(existsByName){
             throw new MedicineAlreadyExistsException("This medicine already exists please add the quantity");
+        }
+        if(quantity<=0){
+            throw new InvalidQuantityException("Please enter a valid quantity");
         }
         medicine.setIs_verified(false);
         return  medicineDao.SaveMedicine(medicine);
@@ -38,5 +42,15 @@ public class MedicineService {
 
     public int getApprovedCount() {
         return medicineDao.countApprovedMedicines();
+    }
+
+    public boolean addStockService(int quantity, Medicine medicine){
+        if(quantity<=0){
+            throw new InvalidQuantityException("Please enter valid medicine quantity");
+        }
+        if(medicine.getMedicineID()<=0){
+            throw new RuntimeException("Unknown medicine, please try again");
+        }
+        return medicineDao.addStock(quantity,medicine);
     }
 }
