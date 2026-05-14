@@ -1,6 +1,7 @@
 package com.govmedcare.controller;
 
 import com.govmedcare.dao.CategoryDao;
+import com.govmedcare.exception.InvalidQuantityException;
 import com.govmedcare.exception.MedicineAlreadyExistsException;
 import com.govmedcare.model.Medicine;
 import com.govmedcare.model.User;
@@ -75,7 +76,7 @@ public class MedicineServlet extends HttpServlet {
             }
             User loggedInUser = (User) session.getAttribute("loggedInUser");
             MedicineValidator.validateMedicine(medicine);
-            boolean saveMedicine = saveMedicineService.saveMedicineService(medicine, loggedInUser.getId());
+            boolean saveMedicine = saveMedicineService.saveMedicineService(medicine, loggedInUser.getId(),quantity);
             if (saveMedicine) {
                 request.getSession().setAttribute("success", "Medicine and image uploaded successfully");
                 response.sendRedirect(request.getContextPath() + "/supplier/medicines/add");
@@ -85,7 +86,7 @@ public class MedicineServlet extends HttpServlet {
                 response.sendRedirect(contextPath + "/supplier/medicine");
             }
 
-        } catch (IllegalArgumentException | MedicineAlreadyExistsException e) {
+        } catch (IllegalArgumentException | MedicineAlreadyExistsException | InvalidQuantityException e) {
             request.setAttribute("error", e.getMessage());
             request.setAttribute("categories", categoryDao.getAllCategory());
             request.getRequestDispatcher("/views/add-medicine.jsp").forward(request, response);

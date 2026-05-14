@@ -65,7 +65,7 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── Left Panel (decorative) ── */
+
         .left-panel {
             width: 42%;
             background: linear-gradient(145deg, var(--green-primary) 0%, #1b5e38 100%);
@@ -102,7 +102,7 @@
         .brand {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* keep left aligned */
+            align-items: flex-start;
         }
 
 
@@ -131,10 +131,9 @@
         .brand-tagline {
             margin-top: 10px;
             font-size: 14px;
-            color: rgba(255,255,255,0.65);
+            color: rgba(255, 255, 255, 0.65);
             line-height: 1.6;
         }
-        /* ── Right Panel (form) ── */
         .right-panel {
             flex: 1;
             padding: 52px 48px;
@@ -159,7 +158,7 @@
             color: var(--text-muted);
         }
 
-        /* ── Error Message ── */
+
         .error-message {
             background: #fdecea;
             border-left: 4px solid var(--error-red);
@@ -170,7 +169,7 @@
             margin-bottom: 22px;
         }
 
-        /* ── Form Elements ── */
+
         form {
             display: flex;
             flex-direction: column;
@@ -212,7 +211,7 @@
             color: #b0c4ba;
         }
 
-        /*  Login Button ── */
+
         .btn-login {
             margin-top: 6px;
             padding: 14px;
