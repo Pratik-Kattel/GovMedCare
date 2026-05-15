@@ -9,7 +9,7 @@ import com.govmedcare.types.UserRole;
 import com.govmedcare.types.UserStatus;
 import org.mindrot.jbcrypt.BCrypt;
 
-public class AuthService {
+public class UserService {
     UserDao userDao=new UserDao();
     public  boolean registerUserService(User user) {
         boolean existByEmail = userDao.checkByEmail(user.getEmail());
@@ -33,6 +33,13 @@ public class AuthService {
         }
         existingUser.setPassword(null);
         return existingUser;
+    }
+
+    public boolean blockUserService(Long id){
+        if(id<=0){
+            throw new RuntimeException("Invalid user, please try again");
+        }
+        return  userDao.blockUser(id);
     }
 }
 
