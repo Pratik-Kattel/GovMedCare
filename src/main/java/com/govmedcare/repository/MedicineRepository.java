@@ -12,4 +12,5 @@ public interface MedicineRepository {
      int countPendingMedicines();
      int countApprovedMedicines();
      boolean addStock(int totalMedicine, Medicine medicine);
+     List<Medicine> getApprovedMedicines();
 }
