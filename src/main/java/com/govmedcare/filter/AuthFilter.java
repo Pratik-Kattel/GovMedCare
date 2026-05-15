@@ -27,6 +27,7 @@ public class AuthFilter implements Filter {
         boolean isAuthPage = uri.equals(contextPath + "/login") || uri.equals(contextPath + "/register");
         boolean isAdminPage = uri.startsWith(contextPath + "/admin");
         boolean isSupplierPage=uri.startsWith(contextPath+"/supplier");
+        boolean isPatientPage = uri.startsWith(contextPath + "/patient");
 
         if (!isLoggedIn && !isAuthPage) {
             resp.sendRedirect(contextPath + "/login");
@@ -44,6 +45,11 @@ public class AuthFilter implements Filter {
             resp.sendRedirect(contextPath + "/unauthorized");
             return;
         }
+        if(isLoggedIn && isPatientPage && !UserRole.PATIENT.name().equals(role)){
+            resp.sendRedirect(contextPath + "/unauthorized");
+            return;
+        }
+
         chain.doFilter(request, response);
     }
 

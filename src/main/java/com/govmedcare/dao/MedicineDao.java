@@ -154,4 +154,28 @@ public class MedicineDao implements MedicineRepository {
         return false;
     }
 
+    @Override
+    public List<Medicine> getApprovedMedicines() {
+        List<Medicine> list =new ArrayList<>();
+        try(Connection conn=DBConnection.getConnection();
+        PreparedStatement ps=conn.prepareStatement(QueryUtil.getApprovedMedicines)
+        ){
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                Medicine medicine = new Medicine();
+                medicine.setMedicineID(rs.getLong("medicine_id"));
+                medicine.setName(rs.getString("name"));
+                medicine.setDescription(rs.getString("description"));
+                medicine.setPrice(rs.getDouble("price"));
+                medicine.setQuantity(rs.getInt("quantity"));
+                medicine.setImageURL(rs.getString("image_url"));
+                medicine.setCategory_name(rs.getString("category_name"));
+                medicine.setIs_verified(rs.getBoolean("is_verified"));
+                list.add(medicine);
+            }
+        } catch (SQLException e) {
+           logger.log(Level.SEVERE,"Unable to fetch the approved medicines");
+        }
+        return list;
+    }
 }

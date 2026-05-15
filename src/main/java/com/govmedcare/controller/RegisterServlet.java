@@ -1,7 +1,7 @@
 package com.govmedcare.controller;
 import com.govmedcare.exception.UserAlreadyExistsException;
 import com.govmedcare.model.User;
-import com.govmedcare.service.AuthService;
+import com.govmedcare.service.UserService;
 import com.govmedcare.validator.UserValidator;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
@@ -15,13 +15,13 @@ import java.io.IOException;
 
 @WebServlet(name = "RegisterServlet", value = "/register")
 public class RegisterServlet extends HttpServlet {
-    private AuthService authService;
+    private UserService userService;
 
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
         super.init(servletConfig);
         System.out.println("RegisterServlet initialized");
-        this.authService = new AuthService();
+        this.userService = new UserService();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class RegisterServlet extends HttpServlet {
         try{
         User user = new User(name, email, address, phone, password);
         UserValidator.validateRegistrationCredentials(user);
-        boolean isRegistered = authService.registerUserService(user);
+        boolean isRegistered = userService.registerUserService(user);
         if(isRegistered){
             request.setAttribute("success","Registration successful please login to continue");
             String contextPath=request.getContextPath();

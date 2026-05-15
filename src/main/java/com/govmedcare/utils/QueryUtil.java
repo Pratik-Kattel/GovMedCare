@@ -6,7 +6,8 @@ public class QueryUtil {
    public static final String saveMedicine="Insert into medicines(name,description,price,quantity,category_id,image_url) VALUES (?,?,?,?,?,?)";
    public static final String checkByName="SELECT * FROM medicines where name=?";
    public static final String getCategories="Select * from categories";
-   public static final String getPendingMedicines ="Select * from medicines where is_verified=false";
+   public static final String getPendingMedicines ="SELECT m.*, c.name AS category_name FROM medicines m JOIN categories c ON m.category_id = c.category_id WHERE m.is_verified = false";;
+   public static final String getApprovedMedicines ="SELECT m.*, c.name AS category_name FROM medicines m JOIN categories c ON m.category_id = c.category_id WHERE m.is_verified = true";
    public static final String validateMedicines="Update medicines SET is_verified=true where medicine_id=?";
    public static final String deleteMedicine="DELETE from medicines where medicine_id=?";
    public static final String getUsers="SELECT * FROM users where status='active'";

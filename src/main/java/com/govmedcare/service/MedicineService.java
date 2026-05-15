@@ -53,4 +53,13 @@ public class MedicineService {
         }
         return medicineDao.addStock(quantity,medicine);
     }
+
+    public List<Medicine> getAllApprovedMedicines(){
+        try{
+            return medicineDao.getApprovedMedicines();
+        }
+        catch (Exception e){
+            throw new RuntimeException("Unable to fetch the approved medicines");
+        }
+    }
 }

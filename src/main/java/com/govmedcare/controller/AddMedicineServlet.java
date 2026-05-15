@@ -1,5 +1,4 @@
 package com.govmedcare.controller;
-
 import com.govmedcare.dao.CategoryDao;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -26,7 +25,7 @@ public class AddMedicineServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Guard: redirect to login if no session
+        // Guard: redirect to log in if no session
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("loggedInUser") == null) {
             response.sendRedirect(request.getContextPath() + "/logout");

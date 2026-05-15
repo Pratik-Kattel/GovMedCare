@@ -3,7 +3,8 @@ import com.govmedcare.exception.InvalidCredentialsException;
 import com.govmedcare.exception.UserBlockedException;
 import com.govmedcare.exception.UserDoesNotExistsException;
 import com.govmedcare.model.User;
-import com.govmedcare.service.AuthService;
+import com.govmedcare.service.UserService;
+import com.govmedcare.types.UserRole;
 import com.govmedcare.validator.UserValidator;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
@@ -17,13 +18,13 @@ import java.io.IOException;
 
 @WebServlet(name = "Login", value = "/login")
 public class LoginServlet extends HttpServlet {
-    private AuthService authService;
+    private UserService userService;
 
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
         super.init(servletConfig);
         System.out.println("Login Servlet initialized");
-        this.authService = new AuthService();
+        this.userService = new UserService();
     }
 
     @Override
@@ -39,7 +40,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         try {
             UserValidator.validateLoginCredentials(email, password);
-            User user = authService.LoginUserService(email, password);
+            User user = userService.LoginUserService(email, password);
             HttpSession oldSession = request.getSession(false);
             if (oldSession != null) {
                 oldSession.invalidate();
@@ -49,7 +50,15 @@ public class LoginServlet extends HttpServlet {
             newSession.setAttribute("role",user.getRole());
             request.setAttribute("success", "Login successful");
             String contextPath=request.getContextPath();
-            response.sendRedirect(contextPath+"/supplier/dashboard");
+            if(UserRole.ADMIN.equals(user.getRole())) {
+                response.sendRedirect(contextPath + "/admin/dashboard");
+            }
+            if(UserRole.SUPPLIER.equals(user.getRole())) {
+                response.sendRedirect(contextPath + "/supplier/dashboard");
+            }
+            if(UserRole.PATIENT.equals(user.getRole())) {
+                response.sendRedirect(contextPath + "/patient/dashboard");
+            }
 
         } catch (IllegalArgumentException | InvalidCredentialsException | UserDoesNotExistsException |
                  UserBlockedException e) {
