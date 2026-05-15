@@ -4,6 +4,7 @@ import com.govmedcare.exception.UserBlockedException;
 import com.govmedcare.exception.UserDoesNotExistsException;
 import com.govmedcare.model.User;
 import com.govmedcare.service.UserService;
+import com.govmedcare.types.UserRole;
 import com.govmedcare.validator.UserValidator;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
@@ -49,7 +50,15 @@ public class LoginServlet extends HttpServlet {
             newSession.setAttribute("role",user.getRole());
             request.setAttribute("success", "Login successful");
             String contextPath=request.getContextPath();
-            response.sendRedirect(contextPath+"/supplier/dashboard");
+            if(UserRole.ADMIN.equals(user.getRole())) {
+                response.sendRedirect(contextPath + "/admin/dashboard");
+            }
+            if(UserRole.SUPPLIER.equals(user.getRole())) {
+                response.sendRedirect(contextPath + "/supplier/dashboard");
+            }
+            if(UserRole.PATIENT.equals(user.getRole())) {
+                response.sendRedirect(contextPath + "/patient/dashboard");
+            }
 
         } catch (IllegalArgumentException | InvalidCredentialsException | UserDoesNotExistsException |
                  UserBlockedException e) {
