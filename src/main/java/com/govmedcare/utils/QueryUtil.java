@@ -17,4 +17,5 @@ public class QueryUtil {
    public static final String countPending  = "SELECT COUNT(*) FROM medicines WHERE is_verified = false";
    public static final String countApproved = "SELECT COUNT(*) FROM medicines WHERE is_verified = true";
    public static final String updateStock="UPDATE medicines set quantity= quantity + ? where medicine_id=?";
+   public static final String createCart = "INSERT INTO cart(patient_id) VALUES(?)";
 }
