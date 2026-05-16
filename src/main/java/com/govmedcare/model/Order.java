@@ -12,6 +12,8 @@ public class Order {
     private Date createdAt;
     private List<OrderItem> items;
 
+    public Order(){}
+
     public Order(Long patientId, double totalAmount, OrderStatus status, Date createdAt, List<OrderItem> items) {
         this.patientId = patientId;
         this.totalAmount = totalAmount;

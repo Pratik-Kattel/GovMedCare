@@ -108,6 +108,7 @@ public class UserDao implements UserRepository {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(QueryUtil.blockUser)
         ) {
+            ps.setLong(1,id);
             int rows = ps.executeUpdate();
             if (rows > 0) return true;
         } catch (SQLException e) {

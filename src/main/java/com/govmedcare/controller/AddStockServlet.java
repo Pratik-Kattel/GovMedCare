@@ -1,5 +1,4 @@
 package com.govmedcare.controller;
-
 import com.govmedcare.exception.InvalidQuantityException;
 import com.govmedcare.model.Medicine;
 import com.govmedcare.service.MedicineService;
@@ -7,9 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
-
 
 @WebServlet(name = "UpdateStock", value = "/supplier/medicines/updateStock")
 public class AddStockServlet extends HttpServlet {

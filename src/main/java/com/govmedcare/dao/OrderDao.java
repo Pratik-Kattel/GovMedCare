@@ -1,11 +1,14 @@
 package com.govmedcare.dao;
-
 import com.govmedcare.model.CartItem;
+import com.govmedcare.model.Order;
+import com.govmedcare.model.OrderItem;
 import com.govmedcare.repository.OrderRepository;
+import com.govmedcare.types.OrderStatus;
 import com.govmedcare.utils.DBConnection;
 import com.govmedcare.utils.QueryUtil;
-
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,6 +51,53 @@ public class OrderDao implements OrderRepository {
             logger.log(Level.SEVERE, "Unable to save order item");
         }
         return false;
+    }
+
+    @Override
+    public List<Order> getPurchaseHistory(Long patient_id) {
+        final List<Order> list=new ArrayList<>();
+        try(Connection conn=DBConnection.getConnection();
+            PreparedStatement ps=conn.prepareStatement(QueryUtil.getPurchaseHistory)
+        ){
+            ps.setLong(1,patient_id);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                Order order=new Order();
+                order.setOrderId(rs.getLong("order_id"));
+                order.setTotalAmount(rs.getDouble("total_amount"));
+                OrderStatus.valueOf(rs.getString("status"));
+                order.setCreatedAt(rs.getTimestamp("created_at"));
+                list.add(order);
+
+            }
+        } catch (SQLException e) {
+           logger.log(Level.SEVERE,"Unable to get purchase history");
+        }
+        return list;
+
+    }
+
+    @Override
+    public List<OrderItem> getSoldHistory() {
+        List<OrderItem> list=new ArrayList<>();
+        try(Connection conn=DBConnection.getConnection();
+        PreparedStatement ps=conn.prepareStatement(QueryUtil.getSoldHistory)
+        ){
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                OrderItem orderItem=new OrderItem();
+                orderItem.setOrderId(rs.getLong("order_id"));
+                orderItem.setMedicineId(rs.getLong("medicine_id"));
+                orderItem.setMedicineName(rs.getString("medicine_name"));
+                orderItem.setQuantity(rs.getInt("quantity"));
+                orderItem.setPrice(rs.getDouble("price"));
+                list.add(orderItem);
+            }
+        }
+        catch (SQLException e){
+            logger.log(Level.SEVERE,"Unable to get sales history");
+        }
+        return list;
     }
 
 }
