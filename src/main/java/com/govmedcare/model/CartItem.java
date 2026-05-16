@@ -8,6 +8,10 @@ public class CartItem {
     private String medicineName;
     private double price;
 
+    public CartItem() {
+
+    }
+
     public String getMedicineName() {
         return medicineName;
     }

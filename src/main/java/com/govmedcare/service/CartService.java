@@ -3,6 +3,9 @@ package com.govmedcare.service;
 import com.govmedcare.dao.CartDao;
 import com.govmedcare.exception.InvalidQuantityException;
 import com.govmedcare.exception.UserDoesNotExistsException;
+import com.govmedcare.model.CartItem;
+
+import java.util.List;
 
 public class CartService {
     CartDao cartDao = new CartDao();
@@ -30,5 +33,12 @@ public class CartService {
         // Add to cart if not already exists
         return cartDao.addCartItem(cart_id, medicine_id, quantity);
 
+    }
+
+    public List<CartItem> getCartItemsService(Long patient_id){
+        if(patient_id<=0){
+            throw new UserDoesNotExistsException("Invalid user, please try again !!");
+        }
+        return cartDao.getCartItems(patient_id);
     }
 }

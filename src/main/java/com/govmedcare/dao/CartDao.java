@@ -1,10 +1,11 @@
 package com.govmedcare.dao;
-
+import com.govmedcare.model.CartItem;
 import com.govmedcare.repository.CartRepository;
 import com.govmedcare.utils.DBConnection;
 import com.govmedcare.utils.QueryUtil;
-
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +20,7 @@ public class CartDao implements CartRepository {
             ps.setLong(1, patient_id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-               return rs.getLong("cart_id");
+                return rs.getLong("cart_id");
             }
 
             // creating cart if doesn't exists and returning the auto_incremented key from mySQL.
@@ -87,6 +88,30 @@ public class CartDao implements CartRepository {
             logger.log(Level.SEVERE, "Unable to update the existing cart quantuty");
         }
         return false;
+    }
+
+    @Override
+    public List<CartItem> getCartItems(Long patient_id) {
+        List<CartItem> list = new ArrayList<>();
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.getCartItems)
+        ) {
+            ps.setLong(1, patient_id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                CartItem item = new CartItem();
+
+                item.setMedicineId(rs.getLong("medicine_id"));
+                item.setMedicineName(rs.getString("name"));
+                item.setPrice(rs.getDouble("price"));
+                item.setQuantity(rs.getInt("quantity"));
+
+                list.add(item);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Unable to get the available cart items");
+        }
+        return list;
     }
 
 }

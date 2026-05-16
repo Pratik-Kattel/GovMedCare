@@ -8,6 +8,9 @@ public class OrderItem {
     private int quantity;
     private double price;
 
+    public OrderItem(){
+
+    }
 
     public OrderItem(Long orderId, Long medicineId, String medicineName, int quantity, double price) {
         this.orderId = orderId;
