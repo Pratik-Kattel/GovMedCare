@@ -41,4 +41,10 @@ public class CartService {
         }
         return cartDao.getCartItems(patient_id);
     }
+    public boolean clearCartService(Long patient_id){
+        if (patient_id<=0){
+            throw new UserDoesNotExistsException("Invalid user, please try again later !");
+        }
+        return cartDao.clearCart(patient_id);
+    }
 }

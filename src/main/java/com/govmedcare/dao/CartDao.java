@@ -1,8 +1,10 @@
 package com.govmedcare.dao;
+
 import com.govmedcare.model.CartItem;
 import com.govmedcare.repository.CartRepository;
 import com.govmedcare.utils.DBConnection;
 import com.govmedcare.utils.QueryUtil;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,4 +116,16 @@ public class CartDao implements CartRepository {
         return list;
     }
 
+    @Override
+    public boolean clearCart(Long patient_id) {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.clearCart)) {
+            ps.setLong(1, patient_id);
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Unable to clear cart");
+        }
+        return false;
+    }
 }

@@ -27,4 +27,5 @@ public class QueryUtil {
    public static final String saveOrderItem = "INSERT INTO order_items(order_id,medicine_id,quantity,price) VALUES(?,?,?,?)";
    public static final String savePayment = "INSERT INTO payments(order_id,amount,payment_method,payment_status) VALUES(?,?,?,?)";
    public static final String reduceMedicineStock = "UPDATE medicines SET quantity=quantity-? WHERE medicine_id=?";
+   public static final String clearCart = "DELETE ci FROM cart_items ci JOIN cart c ON ci.cart_id = c.cart_id WHERE c.patient_id=?";
 }

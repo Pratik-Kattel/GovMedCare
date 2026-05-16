@@ -178,4 +178,21 @@ public class MedicineDao implements MedicineRepository {
         }
         return list;
     }
+
+    @Override
+    public boolean ReduceMedicineStock(Long medicine_id, int quantity) {
+        try(Connection conn=DBConnection.getConnection();
+        PreparedStatement ps=conn.prepareStatement(QueryUtil.reduceMedicineStock)
+        ){
+            ps.setLong(1,medicine_id);
+            ps.setInt(2,quantity);
+            int rowsAffected=ps.executeUpdate();
+
+            return rowsAffected>0;
+        }
+        catch (SQLException e){
+            logger.log(Level.SEVERE,"Failed to reduce medicine stock");
+        }
+        return false;
+    }
 }
