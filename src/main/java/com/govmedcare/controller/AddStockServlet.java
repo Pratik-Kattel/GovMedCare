@@ -1,4 +1,5 @@
 package com.govmedcare.controller;
+
 import com.govmedcare.exception.InvalidQuantityException;
 import com.govmedcare.model.Medicine;
 import com.govmedcare.service.MedicineService;
@@ -6,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 
 
@@ -31,13 +33,8 @@ public class AddStockServlet extends HttpServlet {
             }
             response.sendRedirect(request.getContextPath() + "/supplier/medicines");
         } catch (InvalidQuantityException e) {
-            request.getSession().setAttribute(
-                    "error",
-                    e.getMessage()
-            );
-            response.sendRedirect(
-                    request.getContextPath() + "/supplier/medicines"
-            );
+            request.getSession().setAttribute("error", e.getMessage());
+            response.sendRedirect(request.getContextPath() + "/supplier/medicines");
         }
     }
 }

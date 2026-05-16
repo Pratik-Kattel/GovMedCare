@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet("/patient/medicines")
+@WebServlet(name = "ViewMedicine",value = "/patient/medicines")
 public class ViewMedicineServlet extends HttpServlet {
     private MedicineService medicineService = new MedicineService();
     private CategoryDao categoryDao = new CategoryDao();
