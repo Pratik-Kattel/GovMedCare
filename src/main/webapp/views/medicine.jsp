@@ -12,7 +12,7 @@
 <body>
 
 <aside class="sidebar">
-    <div class="sidebar-logo"><span>Medi<em>Care</em></span></div>
+    <div class="sidebar-logo"><span>GovMedi<em>Care</em></span></div>
     <div class="sidebar-label">Supplier Panel</div>
     <nav>
         <a href="${pageContext.request.contextPath}/supplier/dashboard">
@@ -82,6 +82,7 @@
                             <th>Price (NPR)</th>
                             <th>Quantity</th>
                             <th>Status</th>
+                            <th>Update Stock</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -131,6 +132,25 @@
                                             <span class="badge badge-amber">Pending</span>
                                         </c:otherwise>
                                     </c:choose>
+                                </td>
+                                <td>
+                                    <form method="post"
+                                          action="${pageContext.request.contextPath}/supplier/medicines/updateStock"
+                                          class="stock-update-form">
+
+                                        <input type="hidden" name="medicine_ID" value="${med.medicineID}">
+
+                                        <input type="number"
+                                               name="quantity"
+                                               min="1"
+                                               placeholder="Qty"
+                                               required
+                                               class="stock-input">
+
+                                        <button type="submit" class="btn-stock">
+                                            Update
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         </c:forEach>
