@@ -37,7 +37,7 @@ public class UserService {
 
     public boolean blockUserService(Long id){
         if(id<=0){
-            throw new RuntimeException("Invalid user, please try again");
+            throw new UserDoesNotExistsException("Invalid user, please try again");
         }
         return  userDao.blockUser(id);
     }
