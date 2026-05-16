@@ -6,6 +6,7 @@ import com.govmedcare.exception.InvalidOrderException;
 import com.govmedcare.exception.UserDoesNotExistsException;
 import com.govmedcare.model.CartItem;
 import com.govmedcare.model.Order;
+import com.govmedcare.model.OrderItem;
 
 import java.util.List;
 
@@ -33,5 +34,8 @@ public class OrderService {
             throw new UserDoesNotExistsException("Invalid user, please try again !!");
         }
         return orderDao.getPurchaseHistory(patient_id);
+    }
+    public List<OrderItem> getSoldHistoryService(Long supplier_id) {
+        return orderDao.getSoldHistory(supplier_id);
     }
 }

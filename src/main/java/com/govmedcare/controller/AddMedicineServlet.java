@@ -17,6 +17,7 @@ public class AddMedicineServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        System.out.println("Add Medicine Servlet initialized");
         this.categoryDao = new CategoryDao();
     }
 

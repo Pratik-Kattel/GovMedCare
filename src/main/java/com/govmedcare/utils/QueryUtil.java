@@ -31,5 +31,5 @@ public class QueryUtil {
    public static final String getApprovedMedicinesByCategoryAsc = "SELECT m.*, c.name AS category_name " + "FROM medicines m JOIN categories c ON m.category_id = c.category_id WHERE m.category_id = ? AND m.is_verified = true ORDER BY m.price ASC";
    public static final String getApprovedMedicinesByCategoryDesc = "SELECT m.*, c.name AS category_name FROM medicines m JOIN categories c ON m.category_id = c.category_id WHERE m.category_id = ? AND m.is_verified = true ORDER BY m.price DESC";
    public static final String getPurchaseHistory="Select * from orders where patient_id=? ORDER BY created_at desc";
-   public static final String getSoldHistory="SELECT oi.order_id,oi.medicine_id,m.name AS medicine_name,oi.quantity,oi.price,o.created_at FROM order_items oi JOIN orders o ON oi.order_id = o.order_id JOIN medicines m ON oi.medicine_id = m.medicine_id ORDER BY o.created_at DESC";
+   public static final String getSoldHistory="SELECT oi.order_id,oi.medicine_id,m.name AS medicine_name,oi.quantity,oi.price,o.created_at FROM order_items oi JOIN orders o ON oi.order_id = o.order_id JOIN medicines m ON oi.medicine_id = m.medicine_id where supplier_id=? ORDER BY o.created_at DESC";
 }
