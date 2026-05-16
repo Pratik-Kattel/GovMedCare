@@ -22,4 +22,9 @@ public class QueryUtil {
    public static final String checkCartMedicine = "SELECT * FROM cart_items WHERE cart_id=? AND medicine_id=?";
    public static final String addCartItem = "INSERT INTO cart_items(cart_id,medicine_id,quantity) VALUES(?,?,?)";
    public static final String updateCartQuantity = "UPDATE cart_items SET quantity=quantity+? WHERE cart_id=? AND medicine_id=?";
+   public static final String getCartItems = "SELECT m.medicine_id, m.name, m.price, ci.quantity  FROM cart_items ci JOIN cart c ON ci.cart_id = c.cart_id JOIN medicines m ON ci.medicine_id = m.medicine_id WHERE c.patient_id=?";
+   public static final String createOrder = "INSERT INTO orders(patient_id,total_amount,status) VALUES(?,?,?)";
+   public static final String saveOrderItem = "INSERT INTO order_items(order_id,medicine_id,quantity,price) VALUES(?,?,?,?)";
+   public static final String savePayment = "INSERT INTO payments(order_id,amount,payment_method,payment_status) VALUES(?,?,?,?)";
+   public static final String reduceMedicineStock = "UPDATE medicines SET quantity=quantity-? WHERE medicine_id=?";
 }
