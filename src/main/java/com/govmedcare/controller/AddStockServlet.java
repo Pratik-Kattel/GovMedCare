@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
 @WebServlet(name = "UpdateStock", value = "/supplier/medicines/updateStock")
 public class AddStockServlet extends HttpServlet {
     private MedicineService medicineService;
@@ -31,13 +30,8 @@ public class AddStockServlet extends HttpServlet {
             }
             response.sendRedirect(request.getContextPath() + "/supplier/medicines");
         } catch (InvalidQuantityException e) {
-            request.getSession().setAttribute(
-                    "error",
-                    e.getMessage()
-            );
-            response.sendRedirect(
-                    request.getContextPath() + "/supplier/medicines"
-            );
+            request.getSession().setAttribute("error", e.getMessage());
+            response.sendRedirect(request.getContextPath() + "/supplier/medicines");
         }
     }
 }

@@ -36,11 +36,11 @@ public class CheckOutService {
         if(paidAmount!=totalAmount){
             throw new RequiredPaymentException("Please pay the exact amount NPR."+totalAmount);
         }
-        Long orderID=orderService.createOrder(patient_id,totalAmount);
+        Long orderID=orderService.createOrderService(patient_id,totalAmount);
 
         for (CartItem item:cartItems){
-            orderService.saveOrderItem(orderID,item);
-            medicineService.ReduceMedicineStock(item.getMedicineId(), item.getQuantity());
+            orderService.saveOrderItemService(orderID,item);
+            medicineService.ReduceMedicineStockService(item.getMedicineId(), item.getQuantity());
         }
         paymentService.savePayment(orderID, paidAmount, PaymentStatus.paid,paymentMethod);
         cartService.clearCartService(patient_id);

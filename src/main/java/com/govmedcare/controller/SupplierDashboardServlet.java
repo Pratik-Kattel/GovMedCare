@@ -1,5 +1,4 @@
 package com.govmedcare.controller;
-
 import com.govmedcare.service.MedicineService;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -21,13 +20,9 @@ public class SupplierDashboardServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("pendingCount",  medicineService.getPendingCount());
         request.setAttribute("approvedCount", medicineService.getApprovedCount());
-
-        request.getRequestDispatcher("/views/dashboard.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/views/dashboard.jsp").forward(request, response);
     }
 }
