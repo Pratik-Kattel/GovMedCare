@@ -18,4 +18,8 @@ public class QueryUtil {
    public static final String countApproved = "SELECT COUNT(*) FROM medicines WHERE is_verified = true";
    public static final String updateStock="UPDATE medicines set quantity= quantity + ? where medicine_id=?";
    public static final String createCart = "INSERT INTO cart(patient_id) VALUES(?)";
+   public static final String getCartByUser = "SELECT * FROM cart WHERE patient_id=?";
+   public static final String checkCartMedicine = "SELECT * FROM cart_items WHERE cart_id=? AND medicine_id=?";
+   public static final String addCartItem = "INSERT INTO cart_items(cart_id,medicine_id,quantity) VALUES(?,?,?)";
+   public static final String updateCartQuantity = "UPDATE cart_items SET quantity=quantity+? WHERE cart_id=? AND medicine_id=?";
 }
