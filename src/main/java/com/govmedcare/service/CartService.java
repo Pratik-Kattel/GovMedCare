@@ -18,7 +18,12 @@ public class CartService {
             throw new InvalidQuantityException("Invalid quantity, quantity must be greater than one");
         }
         Long cart_id= cartDao.createOrUpdateCart(patient_id);
+        boolean exists=cartDao.cartMedicineExists(cart_id,medicine_id);
 
-        return false;
+        if(exists){
+            return cartDao.updateExistingQuantity(cart_id,medicine_id,quantity);
+        }
+        return cartDao.addCartItem(cart_id,medicine_id,quantity);
+
     }
 }

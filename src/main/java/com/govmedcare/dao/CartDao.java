@@ -45,14 +45,48 @@ public class CartDao implements CartRepository {
         ) {
             ps.setLong(1, cart_id);
             ps.setLong(2, medicine_id);
-            ResultSet rs=ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             return rs.next();
 
         } catch (SQLException e) {
-         logger.log(Level.SEVERE,"Unable to fetch the cart medicines");
+            logger.log(Level.SEVERE, "Unable to fetch the cart medicines");
         }
         return false;
     }
 
+    @Override
+    public boolean addCartItem(Long cart_id, Long medicine_id, int quantity) {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.addCartItem)
+        ) {
+            ps.setLong(1, cart_id);
+            ps.setLong(2, medicine_id);
+            ps.setInt(3, quantity);
+            int rowsAffected = ps.executeUpdate();
+
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Failed to add cart item");
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateExistingQuantity(Long cart_id, Long medicine_id, int quantity) {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.updateCartQuantity)
+        ) {
+            ps.setInt(1, quantity);
+            ps.setLong(2, cart_id);
+            ps.setLong(3, medicine_id);
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Unable to update the existing cart quantuty");
+        }
+        return false;
+    }
 
 }
