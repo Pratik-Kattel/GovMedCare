@@ -28,4 +28,6 @@ public class QueryUtil {
    public static final String savePayment = "INSERT INTO payments(order_id,amount,payment_method,payment_status) VALUES(?,?,?,?)";
    public static final String reduceMedicineStock = "UPDATE medicines SET quantity=quantity-? WHERE medicine_id=?";
    public static final String clearCart = "DELETE ci FROM cart_items ci JOIN cart c ON ci.cart_id = c.cart_id WHERE c.patient_id=?";
+   public static final String getApprovedMedicinesByCategoryAsc = "SELECT m.*, c.name AS category_name " + "FROM medicines m JOIN categories c ON m.category_id = c.category_id WHERE m.category_id = ? AND m.is_verified = true ORDER BY m.price ASC";
+   public static final String getApprovedMedicinesByCategoryDesc = "SELECT m.*, c.name AS category_name FROM medicines m JOIN categories c ON m.category_id = c.category_id WHERE m.category_id = ? AND m.is_verified = true ORDER BY m.price DESC";
 }

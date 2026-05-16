@@ -14,4 +14,7 @@ public interface MedicineRepository {
      boolean addStock(int totalMedicine, Medicine medicine);
      List<Medicine> getApprovedMedicines();
      boolean ReduceMedicineStock(Long medicine_id,int quantity);
+    List<Medicine> getApprovedByCategoryAsc(Long category_id);
+    List<Medicine> getApprovedByCategoryDesc(Long category_id);
+
 }
