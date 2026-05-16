@@ -19,7 +19,7 @@ public class CartDao implements CartRepository {
             ps.setLong(1, patient_id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                rs.getLong("cart_id");
+               return rs.getLong("cart_id");
             }
 
             // creating cart if doesn't exists and returning the auto_incremented key from mySQL.
