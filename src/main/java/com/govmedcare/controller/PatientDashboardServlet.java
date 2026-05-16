@@ -20,7 +20,9 @@ public class PatientDashboardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        List<Medicine> medicines = medicineService.getAllApprovedMedicines();
+        List<Medicine> medicines = medicineService.getAllApprovedMedicinesService();
+        int totalApproved=medicineService.getApprovedCount();
+        request.setAttribute("TotalApproved",totalApproved);
         request.setAttribute("medicine", medicines);
         request.getRequestDispatcher("/views/patient-medicine.jsp").forward(request, response);
     }

@@ -83,7 +83,7 @@ public class MedicineServlet extends HttpServlet {
             } else {
                 request.setAttribute("Failed", "Failed to save the medicine");
                 String contextPath = request.getContextPath();
-                response.sendRedirect(contextPath + "/supplier/medicine");
+                response.sendRedirect(contextPath + "/supplier/medicines");
             }
 
         } catch (IllegalArgumentException | MedicineAlreadyExistsException | InvalidQuantityException e) {

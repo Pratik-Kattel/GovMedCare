@@ -1,0 +1,34 @@
+package com.govmedcare.controller;
+import com.govmedcare.dao.CategoryDao;
+import com.govmedcare.model.Medicine;
+import com.govmedcare.service.MedicineService;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+
+@WebServlet("/patient/medicines")
+public class ViewMedicineServlet extends HttpServlet {
+    private MedicineService medicineService = new MedicineService();
+    private CategoryDao categoryDao = new CategoryDao();
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String categoryId = request.getParameter("category_id");
+        String sort = request.getParameter("sort");
+        List<Medicine> medicines;
+        request.setAttribute("categories", categoryDao.getAllCategory());
+        if (categoryId != null && !categoryId.isEmpty()) {
+            Long id = Long.parseLong(categoryId);
+            medicines=medicineService.getPatientMedicinesService(id,sort);
+
+        } else {
+            medicines = medicineService.getAllApprovedMedicinesService();
+        }
+        request.setAttribute("medicines", medicines);
+        request.getRequestDispatcher("/views/view-medicines.jsp").forward(request, response);
+    }
+}

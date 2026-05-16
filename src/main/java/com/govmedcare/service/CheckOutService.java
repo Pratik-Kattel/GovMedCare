@@ -40,7 +40,7 @@ public class CheckOutService {
 
         for (CartItem item:cartItems){
             orderService.saveOrderItem(orderID,item);
-            medicineService.ReduceMedicineStock(item.getMedicineId(), item.getQuantity());
+            medicineService.ReduceMedicineStockService(item.getMedicineId(), item.getQuantity());
         }
         paymentService.savePayment(orderID, paidAmount, PaymentStatus.paid,paymentMethod);
         cartService.clearCartService(patient_id);

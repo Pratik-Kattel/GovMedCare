@@ -25,7 +25,7 @@ public class AddMedicineServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Guard: redirect to log in if no session
+        // redirect to log in if no session
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("loggedInUser") == null) {
             response.sendRedirect(request.getContextPath() + "/logout");
