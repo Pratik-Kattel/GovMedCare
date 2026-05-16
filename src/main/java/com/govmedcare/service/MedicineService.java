@@ -62,4 +62,13 @@ public class MedicineService {
             throw new RuntimeException("Unable to fetch the approved medicines");
         }
     }
+    public boolean ReduceMedicineStock(Long medicine_id, int quantity) {
+        if(medicine_id<=0){
+            throw new RuntimeException("Invalid medicine, please try again !!");
+        }
+        if(quantity<=0){
+            throw new InvalidQuantityException("Please enter valid quantity");
+        }
+        return medicineDao.ReduceMedicineStock(medicine_id,quantity);
+    }
 }
