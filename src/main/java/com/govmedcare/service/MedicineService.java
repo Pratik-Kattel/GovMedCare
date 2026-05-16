@@ -82,4 +82,10 @@ public class MedicineService {
             return medicineDao.getApprovedByCategoryAsc(categoryId);
         }
     }
+    public Medicine getMedicineByIdService(Long medicineId) {
+        if (medicineId == null || medicineId <= 0) {
+            throw new RuntimeException("Invalid medicine id");
+        }
+        return medicineDao.getMedicineById(medicineId);
+    }
 }

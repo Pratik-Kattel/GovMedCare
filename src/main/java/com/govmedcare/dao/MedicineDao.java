@@ -242,4 +242,28 @@ public class MedicineDao implements MedicineRepository {
         }
         return list;
     }
+    public Medicine getMedicineById(Long medicineId) {
+        Medicine medicine = null;
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.getMedicineById)
+        ){
+            ps.setLong(1, medicineId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                medicine = new Medicine();
+                medicine.setMedicineID(rs.getLong("medicine_id"));
+                medicine.setName(rs.getString("name"));
+                medicine.setDescription(rs.getString("description"));
+                medicine.setPrice(rs.getDouble("price"));
+                medicine.setQuantity(rs.getInt("quantity"));
+                medicine.setImageURL(rs.getString("image_url"));
+                medicine.setCategory_id(rs.getLong("category_id"));
+                medicine.setIs_verified(rs.getBoolean("is_verified"));
+            }
+
+        } catch (SQLException e) {
+            Logger.getLogger(MedicineDao.class.getName()).log(Level.SEVERE, "Failed to get medicine by id");
+        }
+        return medicine;
+    }
 }
