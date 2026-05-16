@@ -195,4 +195,51 @@ public class MedicineDao implements MedicineRepository {
         }
         return false;
     }
+
+    @Override
+    public List<Medicine> getApprovedByCategoryAsc(Long category_id) {
+        List<Medicine> list = new ArrayList<>();
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.getApprovedMedicinesByCategoryAsc))
+        {
+            ps.setLong(1, category_id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Medicine medicine = new Medicine();
+                medicine.setMedicineID(rs.getLong("medicine_id"));
+                medicine.setName(rs.getString("name"));
+                medicine.setPrice(rs.getDouble("price"));
+                medicine.setQuantity(rs.getInt("quantity"));
+                medicine.setCategory_name(rs.getString("category_name"));
+                medicine.setIs_verified(rs.getBoolean("is_verified"));
+                list.add(medicine);
+            }
+        } catch (SQLException e) {
+           logger.log(Level.SEVERE,"Failed to fetch approved medicines by categories in ascending");
+        }
+        return list;
+    }
+    @Override
+    public List<Medicine> getApprovedByCategoryDesc(Long category_id) {
+        List<Medicine> list = new ArrayList<>();
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.getApprovedMedicinesByCategoryDesc))
+        {
+            ps.setLong(1, category_id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Medicine medicine = new Medicine();
+                medicine.setMedicineID(rs.getLong("medicine_id"));
+                medicine.setName(rs.getString("name"));
+                medicine.setPrice(rs.getDouble("price"));
+                medicine.setQuantity(rs.getInt("quantity"));
+                medicine.setCategory_name(rs.getString("category_name"));
+                medicine.setIs_verified(rs.getBoolean("is_verified"));
+                list.add(medicine);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE,"Failed to fetch approved medicines by categories in descending");
+        }
+        return list;
+    }
 }

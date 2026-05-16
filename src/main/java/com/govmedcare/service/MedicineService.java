@@ -71,4 +71,11 @@ public class MedicineService {
         }
         return medicineDao.ReduceMedicineStock(medicine_id,quantity);
     }
+    public List<Medicine> getPatientMedicinesService(Long categoryId, String sort) {
+        if ("desc".equals(sort)) {
+            return medicineDao.getApprovedByCategoryDesc(categoryId);
+        } else {
+            return medicineDao.getApprovedByCategoryAsc(categoryId);
+        }
+    }
 }
