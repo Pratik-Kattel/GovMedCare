@@ -28,6 +28,6 @@ public class CartServlet extends HttpServlet {
         User user = (User) session.getAttribute("loggedInUser");
         List<CartItem> cartItems = cartService.getCartItemsService(user.getId());
         request.setAttribute("cartItems", cartItems);
-        request.getRequestDispatcher("/views/cart.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/my-cart.jsp").forward(request, response);
     }
 }

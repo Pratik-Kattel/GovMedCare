@@ -27,6 +27,6 @@ public class PatientDashboardServlet extends HttpServlet {
         int totalApproved = medicineService.getApprovedCount();
         request.setAttribute("TotalApproved", totalApproved);
         request.setAttribute("medicine", medicines);
-        request.getRequestDispatcher("/views/patient-medicine.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/patient-home.jsp").forward(request, response);
     }
 }
