@@ -10,7 +10,7 @@ public class DBConnection {
     private static final Logger logger=Logger.getLogger(DBConnection.class.getName());
     private static final String URL="jdbc:mysql://localhost:3306/govmedcare";
     private static final String userName="root";
-    private static final String password="1234";
+    private static final String password="root";
 
     static {
         try{
