@@ -82,16 +82,4 @@ public class MedicineService {
             return medicineDao.getApprovedByCategoryAsc(categoryId);
         }
     }
-    public List<Medicine> getApprovedByCategoryAsc(Long category_id) {
-        if(category_id<=0){
-            throw new RuntimeException("Invalid category");
-        }
-        return medicineDao.getApprovedByCategoryAsc(category_id);
-    }
-    public List<Medicine> getApprovedByCategoryDesc(Long category_id) {
-        if(category_id<=0){
-            throw new RuntimeException("Invalid category");
-        }
-        return medicineDao.getApprovedByCategoryDesc(category_id);
-    }
 }
