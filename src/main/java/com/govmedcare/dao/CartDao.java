@@ -13,7 +13,7 @@ public class CartDao implements CartRepository {
     Logger logger = Logger.getLogger(CartRepository.class.getName());
 
     @Override
-    public Long createOrUpdateCart(Long patient_id) {
+    public Long createCart(Long patient_id) {
         try (Connection conn = DBConnection.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(QueryUtil.getCartByUser);
             // Checking if cart for the user exists or not

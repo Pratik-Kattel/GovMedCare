@@ -22,7 +22,7 @@ public class CartService {
             throw new InvalidQuantityException("Invalid quantity, quantity must be greater than one");
         }
         // Crate or update the cart for user
-        Long cart_id = cartDao.createOrUpdateCart(patient_id);
+        Long cart_id = cartDao.createCart(patient_id);
         boolean exists = cartDao.cartMedicineExists(cart_id, medicine_id);
 
         // Update medicine in cart if it already exists there

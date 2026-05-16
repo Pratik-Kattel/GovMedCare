@@ -5,7 +5,7 @@ import com.govmedcare.model.CartItem;
 import java.util.List;
 
 public interface CartRepository {
-    Long createOrUpdateCart(Long patient_id);
+    Long createCart(Long patient_id);
     boolean cartMedicineExists(Long cart_id, Long medicine_id);
     boolean addCartItem(Long cart_id,Long medicine_id,int quantity);
     boolean updateExistingQuantity(Long cart_id,Long medicine_id,int quantity);
