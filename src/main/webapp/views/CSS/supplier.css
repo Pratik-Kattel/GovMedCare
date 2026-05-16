@@ -30,7 +30,7 @@ body {
 /* ── Sidebar ── */
 .sidebar {
     width: var(--sidebar-w);
-    background: #0d1f2d;
+    background:  #2e7d52;;
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -48,13 +48,13 @@ body {
     color: #fff;
 }
 .sidebar-logo span em {
-    color: var(--teal-light);
+    color: #fff;
     font-style: normal;
 }
 .sidebar-label {
     font-size: .65rem;
     letter-spacing: .12em;
-    color: rgba(255,255,255,.35);
+    color: #fff;
     text-transform: uppercase;
     padding: 20px 24px 8px;
 }
@@ -437,3 +437,34 @@ textarea { resize: vertical; min-height: 90px; }
     transition: all .2s;
 }
 .btn-cancel:hover { border-color: var(--muted); color: var(--text); }
+.stock-update-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stock-input {
+    width: 50px;
+    padding: 4px 6px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: .75rem;
+    font-family: 'DM Sans', sans-serif;
+    text-align: center;
+}
+
+.btn-stock {
+    padding: 5px 10px;
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: .72rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-stock:hover {
+    background: var(--teal-light);
+}

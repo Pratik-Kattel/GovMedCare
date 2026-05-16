@@ -12,7 +12,7 @@
 <body>
 
 <aside class="sidebar">
-    <div class="sidebar-logo"><span>Medi<em>Care</em></span></div>
+    <div class="sidebar-logo"><span>GovMedi<em>Care</em></span></div>
     <div class="sidebar-label">Supplier Panel</div>
     <nav>
         <a href="${pageContext.request.contextPath}/supplier/dashboard" class="active">
