@@ -78,12 +78,13 @@ public class OrderDao implements OrderRepository {
     }
 
     @Override
-    public List<OrderItem> getSoldHistory() {
+    public List<OrderItem> getSoldHistory(Long supplier_id) {
         List<OrderItem> list=new ArrayList<>();
         try(Connection conn=DBConnection.getConnection();
         PreparedStatement ps=conn.prepareStatement(QueryUtil.getSoldHistory)
         ){
             ResultSet rs=ps.executeQuery();
+            ps.setLong(1,supplier_id);
             while (rs.next()){
                 OrderItem orderItem=new OrderItem();
                 orderItem.setOrderId(rs.getLong("order_id"));

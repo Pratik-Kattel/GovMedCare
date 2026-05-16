@@ -1,6 +1,7 @@
 package com.govmedcare.controller;
 import com.govmedcare.model.User;
 import com.govmedcare.service.CartService;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,7 +12,14 @@ import java.io.IOException;
 
 @WebServlet(name = "Add to Cart" ,value="/patient/cart/add")
 public class AddToCartServlet extends HttpServlet {
-    private CartService cartService = new CartService();
+    private CartService cartService;
+
+    public void init(ServletConfig servletConfig) throws ServletException {
+        super.init(servletConfig);
+        System.out.println("Add to cart servlet initialized");
+        this.cartService=new CartService();
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);

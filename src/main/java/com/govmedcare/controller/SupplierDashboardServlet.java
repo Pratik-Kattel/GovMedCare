@@ -16,6 +16,7 @@ public class SupplierDashboardServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        System.out.println("Supplier Dashboard servlet initialized");
         this.medicineService = new MedicineService();
     }
 

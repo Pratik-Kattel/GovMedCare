@@ -2,6 +2,8 @@ package com.govmedcare.controller;
 import com.govmedcare.exception.InvalidQuantityException;
 import com.govmedcare.model.Medicine;
 import com.govmedcare.service.MedicineService;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +15,9 @@ public class AddStockServlet extends HttpServlet {
     private MedicineService medicineService;
 
     @Override
-    public void init() {
+    public void init(ServletConfig servletConfig) throws ServletException {
+        super.init(servletConfig);
+        System.out.println("UpdateStock Servlet Initialized");
         medicineService = new MedicineService();
     }
 

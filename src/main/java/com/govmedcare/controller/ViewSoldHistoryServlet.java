@@ -1,8 +1,7 @@
 package com.govmedcare.controller;
-import com.govmedcare.model.Order;
+import com.govmedcare.model.OrderItem;
 import com.govmedcare.model.User;
 import com.govmedcare.service.OrderService;
-import com.govmedcare.service.UserService;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,22 +13,21 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "View Purchase History", value = "/patient/purchase-history")
-public class ViewPurchaseHistoryServlet extends HttpServlet {
+@WebServlet(name = "View-Sold-History", value = "/supplier/viewsoldhistory")
+public class ViewSoldHistoryServlet extends HttpServlet {
     private OrderService orderService;
 
     public void init(ServletConfig servletConfig) throws ServletException {
         super.init(servletConfig);
-        System.out.println("View Purchase Servlet initialized");
+        System.out.println("View sold Servlet initialized");
         this.orderService = new OrderService();
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            String contextPath = request.getContextPath();
-            response.sendRedirect(contextPath + "/logout");
+            response.sendRedirect(request.getContextPath() + "/logout");
             return;
         }
         User loggedInUser = (User) session.getAttribute("loggedInUser");
@@ -37,9 +35,9 @@ public class ViewPurchaseHistoryServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/logout");
             return;
         }
-        List<Order> orders;
-        orders = orderService.getPurchaseHistoryService(loggedInUser.getId());
-        request.setAttribute("purchaseHistory", orders);
-        request.getRequestDispatcher("/views/purchase-history.jsp").forward(request, response);
+        List<OrderItem> soldMedicines = orderService.getSoldHistoryService(loggedInUser.getId());
+        request.setAttribute("soldHistory", soldMedicines);
+        request.getRequestDispatcher("/views/sold-history.jsp").forward(request, response);
     }
 }
+

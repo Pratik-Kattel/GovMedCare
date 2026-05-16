@@ -9,5 +9,5 @@ public interface OrderRepository {
     Long createOrder(Long patient_id, double amount);
     boolean saveOrderItem(Long order_id, CartItem item);
     List<Order> getPurchaseHistory(Long patient_id);
-    List<OrderItem> getSoldHistory();
+    List<OrderItem> getSoldHistory(Long supplier_id);
 }

@@ -1,7 +1,9 @@
 package com.govmedcare.controller;
 import com.govmedcare.dao.CategoryDao;
 import com.govmedcare.model.Medicine;
+import com.govmedcare.service.CartService;
 import com.govmedcare.service.MedicineService;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,8 +15,15 @@ import java.util.List;
 
 @WebServlet(name = "ViewMedicine",value = "/patient/medicines")
 public class ViewMedicineServlet extends HttpServlet {
-    private MedicineService medicineService = new MedicineService();
-    private CategoryDao categoryDao = new CategoryDao();
+    private MedicineService medicineService;
+    private CategoryDao categoryDao ;
+
+    public void init(ServletConfig servletConfig) throws ServletException {
+        super.init(servletConfig);
+        System.out.println("View Medicine servlet initialized");
+       this.medicineService=new MedicineService();
+       this.categoryDao=new CategoryDao();
+    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String categoryId = request.getParameter("category_id");
