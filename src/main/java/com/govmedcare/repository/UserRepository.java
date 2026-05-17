@@ -10,5 +10,5 @@ public interface UserRepository {
     Optional<User> findByEmail(String email);
     List<User> getAllUsers();
     boolean blockUser(Long id);
-    boolean updateProfile
+    boolean updateProfile(User user);
 }
