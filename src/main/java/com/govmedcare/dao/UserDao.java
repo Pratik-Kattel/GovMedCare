@@ -117,5 +117,24 @@ public class UserDao implements UserRepository {
         }
         return false;
     }
+
+    @Override
+    public boolean updateProfile(User user) {
+        try(Connection conn=DBConnection.getConnection();
+        PreparedStatement ps=conn.prepareStatement(QueryUtil.updateUserInfo)
+        ){
+            ps.setString(1,user.getName());
+            ps.setString(2,user.getPhone());
+            ps.setString(3,user.getAddress());
+            ps.setTimestamp(4,user.getUpdated_at());
+
+            int rowsAffected=ps.executeUpdate();
+            return rowsAffected>0;
+        }
+        catch (SQLException e){
+            logger.log(Level.SEVERE,"Unable to update the user's profile");
+        }
+        return false;
+    }
 }
 

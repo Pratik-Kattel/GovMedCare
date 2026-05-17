@@ -16,6 +16,19 @@ public class User {
     private String address;
     private UserStatus status;
     private Timestamp created_at;
+    private Timestamp updated_at;
+
+    public User(String name, String email, String password, UserRole role, String phone, String address, UserStatus status, Timestamp created_at, Timestamp updated_at) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.phone = phone;
+        this.address = address;
+        this.status = status;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+    }
 
     public User(String name, String email, String password, UserRole role, String phone, String address, UserStatus status) {
         this.name = name;
@@ -26,12 +39,13 @@ public class User {
         this.address = address;
         this.status = status;
     }
-    public User(String name,String email,String address,String phone,String password){
-        this.name=name;
-        this.email=email;
-        this.address=address;
-        this.phone=phone;
-        this.password=password;
+
+    public User(String name, String email, String address, String phone, String password) {
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.phone = phone;
+        this.password = password;
     }
 
     public User(long id, String name, String email, String password, UserRole role, String phone, String address, UserStatus status, Timestamp created_at) {
@@ -119,6 +133,14 @@ public class User {
 
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
+    }
+
+    public Timestamp getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Timestamp updated_at) {
+        this.updated_at = updated_at;
     }
 
 

@@ -1,4 +1,5 @@
 package com.govmedcare.controller;
+
 import com.govmedcare.dao.CategoryDao;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -7,7 +8,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "AddMedicine", value = "/supplier/medicines/add")
 public class AddMedicineServlet extends HttpServlet {
@@ -31,7 +34,12 @@ public class AddMedicineServlet extends HttpServlet {
             return;
         }
         // Load categories for the dropdown
-        request.setAttribute("categories", categoryDao.getAllCategory());
-        request.getRequestDispatcher("/views/add-medicine.jsp").forward(request, response);
+        try {
+            request.setAttribute("categories", categoryDao.getAllCategory());
+            request.getRequestDispatcher("/views/add-medicine.jsp").forward(request, response);
+        }
+        catch (RuntimeException e){
+            session.setAttribute("Error occurred",e.getMessage());
+        }
     }
 }

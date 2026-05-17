@@ -1,4 +1,6 @@
 package com.govmedcare.controller;
+
+import com.govmedcare.exception.UserDoesNotExistsException;
 import com.govmedcare.model.CartItem;
 import com.govmedcare.model.User;
 import com.govmedcare.service.CartService;
@@ -9,18 +11,21 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet(name = "CartItems",value = "/patient/cart")
+@WebServlet(name = "CartItems", value = "/patient/cart")
 public class CartServlet extends HttpServlet {
     private CartService cartService;
+
     public void init(ServletConfig servletConfig) throws ServletException {
         super.init(servletConfig);
         System.out.println("Cart servlet initialized");
-        this.cartService=new CartService();
+        this.cartService = new CartService();
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

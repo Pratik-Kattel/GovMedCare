@@ -1,4 +1,6 @@
 package com.govmedcare.controller;
+
+import com.govmedcare.exception.UserDoesNotExistsException;
 import com.govmedcare.model.Order;
 import com.govmedcare.model.User;
 import com.govmedcare.service.OrderService;
@@ -32,14 +34,20 @@ public class ViewPurchaseHistoryServlet extends HttpServlet {
             response.sendRedirect(contextPath + "/logout");
             return;
         }
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-            response.sendRedirect(request.getContextPath() + "/logout");
-            return;
+        try {
+            User loggedInUser = (User) session.getAttribute("loggedInUser");
+            if (loggedInUser == null) {
+                response.sendRedirect(request.getContextPath() + "/logout");
+                return;
+            }
+            List<Order> orders;
+            orders = orderService.getPurchaseHistoryService(loggedInUser.getId());
+            request.setAttribute("purchaseHistory", orders);
+            request.getRequestDispatcher("/views/purchase-history.jsp").forward(request, response);
+        } catch (UserDoesNotExistsException e) {
+            session.setAttribute("error", e.getMessage());
+            request.getRequestDispatcher("/views/purchase-history.jsp").forward(request, response);
+
         }
-        List<Order> orders;
-        orders = orderService.getPurchaseHistoryService(loggedInUser.getId());
-        request.setAttribute("purchaseHistory", orders);
-        request.getRequestDispatcher("/views/purchase-history.jsp").forward(request, response);
     }
 }

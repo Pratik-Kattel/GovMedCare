@@ -30,14 +30,20 @@ public class ViewSoldHistoryServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/logout");
             return;
         }
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
-        if (loggedInUser == null) {
-            response.sendRedirect(request.getContextPath() + "/logout");
-            return;
+        try {
+            User loggedInUser = (User) session.getAttribute("loggedInUser");
+            if (loggedInUser == null) {
+                response.sendRedirect(request.getContextPath() + "/logout");
+                return;
+            }
+            List<OrderItem> soldMedicines = orderService.getSoldHistoryService(loggedInUser.getId());
+            request.setAttribute("soldHistory", soldMedicines);
+            request.getRequestDispatcher("/views/sold-history.jsp").forward(request, response);
         }
-        List<OrderItem> soldMedicines = orderService.getSoldHistoryService(loggedInUser.getId());
-        request.setAttribute("soldHistory", soldMedicines);
-        request.getRequestDispatcher("/views/sold-history.jsp").forward(request, response);
+        catch (RuntimeException e){
+            session.setAttribute("error",e.getMessage());
+            request.getRequestDispatcher("/views/sold-history.jsp").forward(request, response);
+        }
     }
 }
 
