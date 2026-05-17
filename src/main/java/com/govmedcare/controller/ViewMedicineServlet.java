@@ -28,16 +28,21 @@ public class ViewMedicineServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String categoryId = request.getParameter("category_id");
         String sort = request.getParameter("sort");
-        List<Medicine> medicines;
-        request.setAttribute("categories", categoryDao.getAllCategory());
-        if (categoryId != null && !categoryId.isEmpty()) {
-            Long id = Long.parseLong(categoryId);
-            medicines=medicineService.getPatientMedicinesService(id,sort);
+        try {
+            List<Medicine> medicines;
+            request.setAttribute("categories", categoryDao.getAllCategory());
+            if (categoryId != null && !categoryId.isEmpty()) {
+                Long id = Long.parseLong(categoryId);
+                medicines = medicineService.getPatientMedicinesService(id, sort);
 
-        } else {
-            medicines = medicineService.getAllApprovedMedicinesService();
+            } else {
+                medicines = medicineService.getAllApprovedMedicinesService();
+            }
+            request.setAttribute("medicines", medicines);
+            request.getRequestDispatcher("/views/view-medicines.jsp").forward(request, response);
+        } catch (RuntimeException e) {
+            request.getSession().setAttribute("Error occurred",e.getMessage());
+            request.getRequestDispatcher("/views/view-medicines.jsp").forward(request, response);
         }
-        request.setAttribute("medicines", medicines);
-        request.getRequestDispatcher("/views/view-medicines.jsp").forward(request, response);
     }
 }
