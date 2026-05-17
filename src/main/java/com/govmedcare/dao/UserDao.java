@@ -129,6 +129,7 @@ public class UserDao implements UserRepository {
             ps.setString(2, user.getPhone());
             ps.setString(3, user.getAddress());
             ps.setTimestamp(4, user.getUpdated_at());
+            ps.setLong(4,user.getId());
 
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;

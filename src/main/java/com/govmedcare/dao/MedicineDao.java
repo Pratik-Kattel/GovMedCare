@@ -184,14 +184,14 @@ public class MedicineDao implements MedicineRepository {
         try(Connection conn=DBConnection.getConnection();
         PreparedStatement ps=conn.prepareStatement(QueryUtil.reduceMedicineStock)
         ){
-            ps.setLong(1,medicine_id);
-            ps.setInt(2,quantity);
+            ps.setInt(1,quantity);
+            ps.setLong(2,medicine_id);
             int rowsAffected=ps.executeUpdate();
 
             return rowsAffected>0;
         }
         catch (SQLException e){
-            logger.log(Level.SEVERE,"Failed to reduce medicine stock");
+            logger.log(Level.SEVERE,"Failed to reduce medicine stock",e);
         }
         return false;
     }
@@ -210,6 +210,7 @@ public class MedicineDao implements MedicineRepository {
                 medicine.setName(rs.getString("name"));
                 medicine.setPrice(rs.getDouble("price"));
                 medicine.setQuantity(rs.getInt("quantity"));
+                medicine.setImageURL(rs.getString("image_url"));
                 medicine.setCategory_name(rs.getString("category_name"));
                 medicine.setIs_verified(rs.getBoolean("is_verified"));
                 list.add(medicine);
@@ -233,6 +234,7 @@ public class MedicineDao implements MedicineRepository {
                 medicine.setName(rs.getString("name"));
                 medicine.setPrice(rs.getDouble("price"));
                 medicine.setQuantity(rs.getInt("quantity"));
+                medicine.setImageURL(rs.getString("image_url"));
                 medicine.setCategory_name(rs.getString("category_name"));
                 medicine.setIs_verified(rs.getBoolean("is_verified"));
                 list.add(medicine);

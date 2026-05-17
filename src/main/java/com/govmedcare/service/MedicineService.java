@@ -76,7 +76,7 @@ public class MedicineService {
     }
 
     public List<Medicine> getPatientMedicinesService(Long categoryId, String sort) {
-        if ("High to Low".equals(sort)) {
+        if ("high".equals(sort)) {
             return medicineDao.getApprovedByCategoryDesc(categoryId);
         } else {
             return medicineDao.getApprovedByCategoryAsc(categoryId);

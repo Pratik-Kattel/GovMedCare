@@ -49,11 +49,13 @@ public class UpdateInfoServlet extends HttpServlet {
             String name = request.getParameter("name");
             String phone = request.getParameter("phone");
             String address = request.getParameter("address");
+            Long id=loggedInUser.getId();
 
             User user = new User();
             user.setName(name);
             user.setPhone(phone);
             user.setAddress(address);
+            user.setId(id);
             user.setUpdated_at(Timestamp.valueOf(LocalDateTime.now()));
             UserValidator.validateInfoUpdateCredentials(user);
 
@@ -62,7 +64,6 @@ public class UpdateInfoServlet extends HttpServlet {
                 loggedInUser.setName(name);
                 loggedInUser.setPhone(phone);
                 loggedInUser.setAddress(address);
-
                 httpSession.setAttribute("loggedInUser", user);
                 httpSession.setAttribute("success", "Info updated successfully");
             } else {
