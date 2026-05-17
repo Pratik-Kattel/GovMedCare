@@ -24,9 +24,6 @@ public class OrderService {
     }
 
     public boolean saveOrderItemService(Long order_id, CartItem item) {
-        if (order_id <= 0) {
-            throw new InvalidOrderException("Invalid order please try again !!");
-        }
         return orderDao.saveOrderItem(order_id, item);
     }
     public List<Order> getPurchaseHistoryService(Long patient_id) {
