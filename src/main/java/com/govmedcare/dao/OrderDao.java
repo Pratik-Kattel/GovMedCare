@@ -91,6 +91,7 @@ public class OrderDao implements OrderRepository {
                 orderItem.setMedicineId(rs.getLong("medicine_id"));
                 orderItem.setMedicineName(rs.getString("medicine_name"));
                 orderItem.setQuantity(rs.getInt("quantity"));
+                orderItem.setPatientName(rs.getString("patient_name"));
                 orderItem.setPrice(rs.getDouble("price"));
                 list.add(orderItem);
             }
