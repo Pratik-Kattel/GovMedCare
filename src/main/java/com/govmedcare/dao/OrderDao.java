@@ -23,14 +23,14 @@ public class OrderDao implements OrderRepository {
              PreparedStatement ps = conn.prepareStatement(QueryUtil.createOrder, Statement.RETURN_GENERATED_KEYS)) {
             ps.setLong(1, patient_id);
             ps.setDouble(2, amount);
-            ps.setString(3, "PAID");
+            ps.setString(3, "Completed");
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 return rs.getLong(1);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Unable to create order");
+            logger.log(Level.SEVERE, "Unable to create order",e);
         }
         return 0L;
     }
@@ -48,7 +48,7 @@ public class OrderDao implements OrderRepository {
             return rowsAffected > 0;
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Unable to save order item");
+            logger.log(Level.SEVERE, "Unable to save order item",e);
         }
         return false;
     }
@@ -83,8 +83,8 @@ public class OrderDao implements OrderRepository {
         try(Connection conn=DBConnection.getConnection();
         PreparedStatement ps=conn.prepareStatement(QueryUtil.getSoldHistory)
         ){
-            ResultSet rs=ps.executeQuery();
             ps.setLong(1,supplier_id);
+            ResultSet rs=ps.executeQuery();
             while (rs.next()){
                 OrderItem orderItem=new OrderItem();
                 orderItem.setOrderId(rs.getLong("order_id"));
