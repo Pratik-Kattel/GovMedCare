@@ -38,6 +38,6 @@ public class ViewMedicineServlet extends HttpServlet {
             medicines = medicineService.getAllApprovedMedicinesService();
         }
         request.setAttribute("medicines", medicines);
-        request.getRequestDispatcher("/views/view-medicines.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/patient-medicines.jsp").forward(request, response);
     }
 }
