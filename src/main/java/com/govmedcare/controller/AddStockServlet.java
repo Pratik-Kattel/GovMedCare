@@ -32,10 +32,10 @@ public class AddStockServlet extends HttpServlet {
             if (isSuccess) {
                 request.getSession().setAttribute("success", "Stock updated successfully");
             }
-            response.sendRedirect(request.getContextPath() + "/supplier/medicines/updateStock");
+            response.sendRedirect(request.getContextPath() + "/supplier/medicines");
         } catch (InvalidQuantityException e) {
             request.getSession().setAttribute("error", e.getMessage());
-            response.sendRedirect(request.getContextPath() + "/supplier/medicines/updateStock");
+            response.sendRedirect(request.getContextPath() + "/supplier/medicines");
         }
     }
 }

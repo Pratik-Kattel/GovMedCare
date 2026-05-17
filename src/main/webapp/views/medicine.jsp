@@ -27,6 +27,10 @@
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
             View Medicines
         </a>
+        <a href="${pageContext.request.contextPath}//supplier/viewsoldhistory" class="active">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+            Sales History
+        </a>
     </nav>
     <div class="sidebar-footer">GovMediCare © 2025</div>
 </aside>
@@ -41,6 +45,20 @@
     </div>
 
     <div class="content">
+
+        <% if (session.getAttribute("success") != null) { %>
+        <div class="alert alert-success">
+            <%= session.getAttribute("success") %>
+        </div>
+        <% session.removeAttribute("success"); %>
+        <% } %>
+
+        <% if (session.getAttribute("error") != null) { %>
+        <div class="alert alert-error">
+            <%= session.getAttribute("error") %>
+        </div>
+        <% session.removeAttribute("error"); %>
+        <% } %>
 
         <form method="get" action="${pageContext.request.contextPath}/supplier/medicines" class="filter-bar">
             <label for="categorySelect">Filter by Category:</label>
