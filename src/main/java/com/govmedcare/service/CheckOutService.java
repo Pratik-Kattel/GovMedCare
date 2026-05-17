@@ -15,16 +15,20 @@ public class CheckOutService {
     CartService cartService = new CartService();
     OrderService orderService = new OrderService();
     PaymentService paymentService = new PaymentService();
+
     public boolean checkOut(Long patient_id, double paidAmount, String paymentMethod) {
         // validate user
-        if (patient_id <= 0) {throw new UserDoesNotExistsException("Invalid user, please try again !!");
+        if (patient_id <= 0) {
+            throw new UserDoesNotExistsException("Invalid user, please try again !!");
         }
         // validate amount
-        if (paidAmount <= 0) {throw new InvalidAmountException("Amount must be greater than 0");
+        if (paidAmount <= 0) {
+            throw new InvalidAmountException("Amount must be greater than 0");
         }
 
         // validate payment method
-        if (paymentMethod == null || paymentMethod.trim().isEmpty()) {throw new PaymentMethodException("Please choose one payment option");
+        if (paymentMethod == null || paymentMethod.trim().isEmpty()) {
+            throw new PaymentMethodException("Please choose one payment option");
         }
 
         // get cart items
@@ -45,17 +49,20 @@ public class CheckOutService {
             throw new RequiredPaymentException("Please pay the exact amount NPR. " + totalAmount);
         }
 
-        // validate stock availability (ONLY validation loop)
+        // validate stock availability
         for (CartItem item : cartItems) {
             Medicine medicine = medicineService.getMedicineByIdService(item.getMedicineId());
             if (medicine == null) {
                 throw new RuntimeException("Medicine not found");
             }
-
-            if (item.getQuantity() > medicine.getQuantity()) {throw new RuntimeException(medicine.getName() + " only has " + medicine.getQuantity() + " items available");
+            if(medicine.getQuantity()==0){
+                throw new RuntimeException("Sorry,Medicine is currently out of stock");
+            }
+            if (item.getQuantity() > medicine.getQuantity()) {
+                throw new RuntimeException(medicine.getName() + " only has " + medicine.getQuantity() + " items available");
             }
         }
-        // create order (AFTER validation)
+        // create order (after validation)
         Long order_id = orderService.createOrderService(patient_id, totalAmount);
 
         // save order items + reduce stock
