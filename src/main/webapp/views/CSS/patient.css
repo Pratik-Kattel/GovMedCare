@@ -466,3 +466,98 @@ tbody td {
     color: #e5534b;
     border-color: #f5c6c4;
 }
+.checkout-layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 24px;
+    align-items: start;
+}
+
+.checkout-card {
+    padding-bottom: 10px;
+}
+
+.checkout-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    padding: 22px 24px 10px;
+    color: var(--text);
+}
+
+.payment-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+}
+
+.payment-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+}
+
+.payment-card p {
+    font-size: .85rem;
+    color: var(--muted);
+    margin-bottom: 22px;
+    line-height: 1.5;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 9px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .9rem;
+    color: var(--text);
+    background: #fff;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--teal-light);
+    box-shadow: 0 0 0 3px rgba(18,160,144,.1);
+}
+
+.full-btn {
+    width: 100%;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.btn-cancel {
+    padding: 10px 14px;
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--border);
+    border-radius: 9px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .9rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-cancel:hover {
+    border-color: var(--muted);
+    color: var(--text);
+}

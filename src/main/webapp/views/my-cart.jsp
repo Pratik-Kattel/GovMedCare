@@ -85,7 +85,7 @@
 
                         <a href="${pageContext.request.contextPath}/patient/checkout"
                            class="btn-submit">
-                            Proceed to Checkout
+                            Proceed Payment
                         </a>
                     </div>
                 </c:otherwise>
