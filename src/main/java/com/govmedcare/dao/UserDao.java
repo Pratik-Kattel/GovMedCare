@@ -134,7 +134,7 @@ public class UserDao implements UserRepository {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Unable to update the user's profile",e.getMessage());
+            logger.log(Level.SEVERE, "Unable to update the user's profile",e);
         }
         return false;
     }
