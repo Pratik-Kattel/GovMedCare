@@ -11,4 +11,7 @@ public interface CartRepository {
     boolean updateExistingQuantity(Long cart_id,Long medicine_id,int quantity);
     List<CartItem> getCartItems(Long patient_id);
     boolean clearCart(Long patient_id);
+    boolean increaseQuantity(Long patient_id,Long medicine_id);
+    boolean decreaseQuantity(Long patient_id,Long medicine_id);
+    boolean removeSingleItem(Long patient_id,Long medicine_id);
 }
