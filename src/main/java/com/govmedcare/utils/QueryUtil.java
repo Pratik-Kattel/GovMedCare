@@ -9,8 +9,8 @@ public class QueryUtil {
    public static final String getPendingMedicines ="SELECT m.*, c.name AS category_name FROM medicines m JOIN categories c ON m.category_id = c.category_id WHERE m.is_verified = false";;
    public static final String getApprovedMedicines ="SELECT m.*, c.name AS category_name FROM medicines m JOIN categories c ON m.category_id = c.category_id WHERE m.is_verified = true";
    public static final String validateMedicines="Update medicines SET is_verified=true where medicine_id=?";
-   public static final String deleteMedicine="DELETE from medicines where medicine_id=?";
-   public static final String getActiveUsers ="SELECT * FROM users where status='active'";
+   public static final String deleteMedicine="UPDATE medicines SET is_verified = false WHERE medicine_id = ?";
+   public static final String getActiveUsers =    "SELECT * FROM users WHERE status='active' AND role='PATIENT'";
    public static final String blockUser="UPDATE users set status='blocked' WHERE user_id=?";
    public static final String getAllMedicineAndCategory="SELECT m.*, c.name AS category_name FROM medicines m JOIN categories c ON m.category_id = c.category_id;";
    public static final String getMedicinesByCategory = "SELECT m.*, c.name AS category_name FROM medicines m JOIN categories c ON m.category_id = c.category_id WHERE m.category_id = ?";

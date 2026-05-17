@@ -65,7 +65,7 @@ public class ApproveMedicineDao implements ApproveMedicineRepository {
             int rows=ps.executeUpdate();
             if(rows>0) return true;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE,"Failed to delete medicine",e.getMessage());
+            logger.log(Level.SEVERE,"Failed to delete medicine",e);
         }
         return false;
     }
