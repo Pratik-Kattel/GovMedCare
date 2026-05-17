@@ -69,11 +69,11 @@ public class UpdateInfoServlet extends HttpServlet {
             } else {
                 httpSession.setAttribute("Failed", "Failed to update info");
             }
-            response.sendRedirect(request.getContextPath() + "/patient/profile");
+            response.sendRedirect(request.getContextPath() + "/patient/update-info");
         }
         catch (UserDoesNotExistsException | IllegalArgumentException e){
             httpSession.setAttribute("error",e.getMessage());
-            response.sendRedirect(request.getContextPath() + "/patient/profile");
+            response.sendRedirect(request.getContextPath() + "/patient/update-info");
         }
     }
 }

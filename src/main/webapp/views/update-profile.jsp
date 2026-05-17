@@ -27,6 +27,21 @@
   <div class="card">
     <h2>Update Profile</h2>
 
+    <% if (session.getAttribute("success") != null) { %>
+    <div class="alert alert-success">
+      <%= session.getAttribute("success") %>
+    </div>
+    <% session.removeAttribute("success"); %>
+    <% } %>
+
+    <% if (session.getAttribute("error") != null) { %>
+    <div class="alert alert-error">
+      <%= session.getAttribute("error") %>
+    </div>
+    <% session.removeAttribute("error"); %>
+    <% } %>
+
+
     <form action="${pageContext.request.contextPath}/patient/update-info" method="post">
 
       <label>Name</label>
