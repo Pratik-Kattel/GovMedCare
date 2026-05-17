@@ -35,4 +35,6 @@ public class QueryUtil {
    public static final String getMedicineById = "SELECT * FROM medicines WHERE medicine_id = ?";
    public static final String updateUserInfo="UPDATE users set name=?,phone=?,address=?,updated_at=?";
    public static final String calculateTotalRevenue="SELECT SUM(total_amount) AS total_revenue from orders WHERE status='Completed'";
+   public static final String getTotalActiveUsers="SELECT COUNT(user_id) AS active_users FROM users where status='active'";
+   public static final String getTotalBlockedUsers="SELECT COUNT(user_id) AS blocked_users FROM users where status='blocked'";
 }

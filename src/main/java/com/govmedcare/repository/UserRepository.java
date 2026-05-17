@@ -1,5 +1,6 @@
 package com.govmedcare.repository;
 import com.govmedcare.model.User;
+import com.govmedcare.types.UserStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,4 +12,6 @@ public interface UserRepository {
     List<User> getAllUsers();
     boolean blockUser(Long id);
     boolean updateProfile(User user);
+    int getActiveUsers();
+    int getBlockedUsers();
 }

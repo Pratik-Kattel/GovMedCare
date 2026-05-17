@@ -49,6 +49,12 @@ public class UserService {
         }
         return userDao.updateProfile(user);
     }
+    public int getActiveUsers() {
+        return userDao.getActiveUsers();
+    }
+    public int getBlockedUsers() {
+        return userDao.getBlockedUsers();
+    }
 
 }
 

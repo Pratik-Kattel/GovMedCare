@@ -1,10 +1,12 @@
 package com.govmedcare.dao;
+
 import com.govmedcare.model.User;
 import com.govmedcare.repository.UserRepository;
 import com.govmedcare.types.UserRole;
 import com.govmedcare.types.UserStatus;
 import com.govmedcare.utils.DBConnection;
 import com.govmedcare.utils.QueryUtil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -108,7 +110,7 @@ public class UserDao implements UserRepository {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(QueryUtil.blockUser)
         ) {
-            ps.setLong(1,id);
+            ps.setLong(1, id);
             int rows = ps.executeUpdate();
             if (rows > 0) return true;
         } catch (SQLException e) {
@@ -120,21 +122,50 @@ public class UserDao implements UserRepository {
 
     @Override
     public boolean updateProfile(User user) {
-        try(Connection conn=DBConnection.getConnection();
-        PreparedStatement ps=conn.prepareStatement(QueryUtil.updateUserInfo)
-        ){
-            ps.setString(1,user.getName());
-            ps.setString(2,user.getPhone());
-            ps.setString(3,user.getAddress());
-            ps.setTimestamp(4,user.getUpdated_at());
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.updateUserInfo)
+        ) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getPhone());
+            ps.setString(3, user.getAddress());
+            ps.setTimestamp(4, user.getUpdated_at());
 
-            int rowsAffected=ps.executeUpdate();
-            return rowsAffected>0;
-        }
-        catch (SQLException e){
-            logger.log(Level.SEVERE,"Unable to update the user's profile");
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Unable to update the user's profile");
         }
         return false;
+    }
+
+    @Override
+    public int getActiveUsers() {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.getTotalActiveUsers)
+        ) {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("active_users");
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Unable to fetch the number of active users");
+        }
+        return 0;
+    }
+
+    @Override
+    public int getBlockedUsers() {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.getTotalBlockedUsers)
+        ) {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("blocked_users");
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Unable to fetch the number of blocked users");
+        }
+        return 0;
     }
 }
 
