@@ -7,7 +7,10 @@ import com.govmedcare.exception.UserDoesNotExistsException;
 import com.govmedcare.model.CartItem;
 import com.govmedcare.model.Medicine;
 import com.govmedcare.types.PaymentStatus;
+import com.govmedcare.utils.DBConnection;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class CheckOutService {
@@ -16,7 +19,9 @@ public class CheckOutService {
     OrderService orderService = new OrderService();
     PaymentService paymentService = new PaymentService();
 
-    public boolean checkOut(Long patient_id, double paidAmount, String paymentMethod) {
+    public boolean checkOut(Long patient_id, double paidAmount, String paymentMethod) throws SQLException {
+        Connection conn = DBConnection.getConnection();
+        conn.setAutoCommit(false);
         // validate user
         if (patient_id <= 0) {
             throw new UserDoesNotExistsException("Invalid user, please try again !!");
@@ -68,7 +73,10 @@ public class CheckOutService {
         // save order items + reduce stock
         for (CartItem item : cartItems) {
             orderService.saveOrderItemService(order_id, item);
-            medicineService.ReduceMedicineStockService(item.getMedicineId(), item.getQuantity());
+            boolean updated = medicineService.ReduceMedicineStockService(item.getMedicineId(), item.getQuantity());
+            if (!updated) {
+                throw new RuntimeException("Failed to update stock for medicine ID: " + item.getMedicineId());
+            }
         }
         // save payment
         paymentService.savePayment(order_id, paidAmount, PaymentStatus.paid, paymentMethod

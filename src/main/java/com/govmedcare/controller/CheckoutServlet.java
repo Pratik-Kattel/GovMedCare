@@ -14,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/patient/checkout")
@@ -74,13 +75,7 @@ public class CheckoutServlet extends HttpServlet {
         try {
             double paidAmount = Double.parseDouble(request.getParameter("paidAmount"));
             String paymentMethod = request.getParameter("paymentMethod");
-
-            boolean success = checkOutService.checkOut(
-                    user.getId(),
-                    paidAmount,
-                    paymentMethod
-            );
-
+            boolean success = checkOutService.checkOut(user.getId(), paidAmount, paymentMethod);
             if (success) {
                 session.setAttribute("success", "Checkout successful!");
                 response.sendRedirect(request.getContextPath() + "/patient/checkout");
@@ -93,14 +88,14 @@ public class CheckoutServlet extends HttpServlet {
         } catch (UserDoesNotExistsException | InvalidQuantityException |
                  PaymentMethodException | RequiredPaymentException |
                  InvalidOrderException e) {
-
             session.setAttribute("error", e.getMessage());
             response.sendRedirect(request.getContextPath() + "/patient/checkout");
 
         } catch (NumberFormatException e) {
-
             session.setAttribute("error", "Invalid payment amount.");
             response.sendRedirect(request.getContextPath() + "/patient/checkout");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }
