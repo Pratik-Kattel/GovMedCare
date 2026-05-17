@@ -31,12 +31,8 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("loggedInUser");
-        try {
-            List<CartItem> cartItems = cartService.getCartItemsService(user.getId());
-            request.setAttribute("cartItems", cartItems);
-            request.getRequestDispatcher("/views/cart.jsp").forward(request, response);
-        } catch (UserDoesNotExistsException e) {
-            session.setAttribute("Error", e.getMessage());
-        }
+        List<CartItem> cartItems = cartService.getCartItemsService(user.getId());
+        request.setAttribute("cartItems", cartItems);
+        request.getRequestDispatcher("/views/my-cart.jsp").forward(request, response);
     }
 }

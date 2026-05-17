@@ -44,5 +44,7 @@ public class ViewMedicineServlet extends HttpServlet {
             request.getSession().setAttribute("Error occurred",e.getMessage());
             request.getRequestDispatcher("/views/view-medicines.jsp").forward(request, response);
         }
+        request.setAttribute("medicines", medicines);
+        request.getRequestDispatcher("/views/patient-medicines.jsp").forward(request, response);
     }
 }
