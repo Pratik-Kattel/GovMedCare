@@ -7,6 +7,7 @@ import com.govmedcare.exception.UserDoesNotExistsException;
 import com.govmedcare.model.User;
 import com.govmedcare.types.UserRole;
 import com.govmedcare.types.UserStatus;
+import com.govmedcare.validator.UserValidator;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class UserService {
@@ -41,5 +42,19 @@ public class UserService {
         }
         return  userDao.blockUser(id);
     }
+
+    public boolean updateUserInfoService(User user){
+        if(user==null){
+            throw new UserDoesNotExistsException("Invalid user, please try again !");
+        }
+        return userDao.updateProfile(user);
+    }
+    public int getActiveUsers() {
+        return userDao.getActiveUsers();
+    }
+    public int getBlockedUsers() {
+        return userDao.getBlockedUsers();
+    }
+
 }
 

@@ -65,6 +65,7 @@ public class MedicineServlet extends HttpServlet {
         Part   imagePart  = request.getPart("image");
         String uploadPath = getServletContext().getRealPath("/") + "uploads";
         String imageURL   = ImageUpload.saveImage(imagePart, uploadPath);
+        System.out.println(uploadPath);
         final Long category_id = Long.parseLong(request.getParameter("category_id"));
         try {
             Medicine medicine = new Medicine(name, description, price, quantity, imageURL, category_id);
