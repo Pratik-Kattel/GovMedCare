@@ -12,14 +12,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supplier Dashboard – MediCare</title>
+    <title>Supplier Dashboard – MedCare</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/views/CSS/supplier.css">
 </head>
 <body>
 
 <aside class="sidebar">
-    <div class="sidebar-logo"><span>GovMedi<em>Care</em></span></div>
+    <div class="sidebar-logo"><span>GovMed<em>Care</em></span></div>
     <div class="sidebar-label">Supplier Panel</div>
     <nav>
         <a href="${pageContext.request.contextPath}/supplier/dashboard" class="active">
@@ -40,7 +40,7 @@
         </a>
         <a href="${pageContext.request.contextPath}/logout">Logout</a>
     </nav>
-    <div class="sidebar-footer">GovMediCare © 2025</div>
+    <div class="sidebar-footer">GovMedCare © 2026</div>
 </aside>
 
 <div class="main">

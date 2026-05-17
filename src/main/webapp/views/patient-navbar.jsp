@@ -13,7 +13,7 @@
 <body>
 <aside class="sidebar">
   <div class="sidebar-logo">
-    <span>GovMedi<em>Care</em></span>
+    <span>GovMed<em>Care</em></span>
   </div>
 
   <div class="sidebar-label">Patient Panel</div>
@@ -27,7 +27,7 @@
     <a href="${pageContext.request.contextPath}/logout">Logout</a>
   </nav>
 
-  <div class="sidebar-footer">GovMediCare © 2025</div>
+  <div class="sidebar-footer">GovMedCare © 2026</div>
 </aside>
 
 </body>
