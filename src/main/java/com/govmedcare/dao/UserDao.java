@@ -87,7 +87,7 @@ public class UserDao implements UserRepository {
     public List<User> getAllUsers() {
         List<User> list = new ArrayList<>();
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(QueryUtil.getUsers)
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.getActiveUsers)
         ) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
