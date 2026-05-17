@@ -45,7 +45,7 @@
         </div>
 
         <div class="stat-info">
-          <div class="label">Approved Medicines</div>
+          <div class="label">Total Available Medicines</div>
           <div class="value">${TotalApproved}</div>
         </div>
       </div>
