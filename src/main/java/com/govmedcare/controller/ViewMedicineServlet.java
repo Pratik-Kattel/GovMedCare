@@ -1,7 +1,6 @@
 package com.govmedcare.controller;
 import com.govmedcare.dao.CategoryDao;
 import com.govmedcare.model.Medicine;
-import com.govmedcare.service.CartService;
 import com.govmedcare.service.MedicineService;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
