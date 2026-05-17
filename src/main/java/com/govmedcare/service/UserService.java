@@ -10,6 +10,8 @@ import com.govmedcare.types.UserStatus;
 import com.govmedcare.validator.UserValidator;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.List;
+
 public class UserService {
     UserDao userDao=new UserDao();
     public  boolean registerUserService(User user) {
@@ -54,6 +56,10 @@ public class UserService {
     }
     public int getBlockedUsers() {
         return userDao.getBlockedUsers();
+    }
+
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
     }
 
 }
