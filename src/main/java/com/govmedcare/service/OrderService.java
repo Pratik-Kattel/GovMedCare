@@ -32,7 +32,7 @@ public class OrderService {
         }
         return orderDao.getPurchaseHistory(patient_id);
     }
-    public List<OrderItem> getSoldHistoryService(Long supplier_id) {
-        return orderDao.getSoldHistory(supplier_id);
+    public List<OrderItem> getSoldHistoryService() {
+        return orderDao.getSoldHistory();
     }
 }
