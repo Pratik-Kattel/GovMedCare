@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales History – GovMediCare</title>
+    <title>Sales History – GovMedCare</title>
 
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
           rel="stylesheet">
@@ -51,9 +51,7 @@
         <a href="${pageContext.request.contextPath}/logout">Logout</a>
     </nav>
 
-    <div class="sidebar-footer">
-        GovMediCare © 2025
-    </div>
+    <div class="sidebar-footer">GovMedCare © 2026</div>
 </aside>
 
 <div class="main">
