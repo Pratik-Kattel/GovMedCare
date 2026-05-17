@@ -25,20 +25,38 @@ public class AddToCartServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         HttpSession session = request.getSession(false);
+
+        if (session == null || session.getAttribute("loggedInUser") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
         User user = (User) session.getAttribute("loggedInUser");
+
         try {
             Long medicineId = Long.parseLong(request.getParameter("medicine_id"));
             int quantity = Integer.parseInt(request.getParameter("quantity"));
+
             boolean success = cartService.addToCartService(user.getId(), medicineId, quantity);
+
             if (success) {
+                session.setAttribute("success", "Medicine added to cart successfully.");
                 response.sendRedirect(request.getContextPath() + "/patient/cart");
             } else {
+                session.setAttribute("error", "Unable to add medicine to cart.");
                 response.sendRedirect(request.getContextPath() + "/patient/medicines");
             }
+
         } catch (UserDoesNotExistsException | InvalidQuantityException e) {
-            session.setAttribute("Error occurred", e.getMessage());
+            session.setAttribute("error", e.getMessage());
+            response.sendRedirect(request.getContextPath() + "/patient/medicines");
+        } catch (NumberFormatException e) {
+            session.setAttribute("error", "Invalid medicine or quantity selected.");
+            response.sendRedirect(request.getContextPath() + "/patient/medicines");
         }
     }
 }
