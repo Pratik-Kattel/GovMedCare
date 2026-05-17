@@ -64,7 +64,7 @@ public class UpdateInfoServlet extends HttpServlet {
                 loggedInUser.setName(name);
                 loggedInUser.setPhone(phone);
                 loggedInUser.setAddress(address);
-                httpSession.setAttribute("loggedInUser", user);
+                httpSession.setAttribute("loggedInUser", loggedInUser);
                 httpSession.setAttribute("success", "Info updated successfully");
             } else {
                 httpSession.setAttribute("Failed", "Failed to update info");
