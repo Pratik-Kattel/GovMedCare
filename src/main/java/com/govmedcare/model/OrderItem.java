@@ -7,6 +7,16 @@ public class OrderItem {
     private String medicineName;
     private int quantity;
     private double price;
+    private String patientName;
+
+    public String getPatientName() {
+        return patientName;
+    }
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+
 
     public OrderItem(){
 
