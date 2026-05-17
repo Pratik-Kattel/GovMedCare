@@ -34,13 +34,21 @@ public class AdminDeleteMedicineServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String action = request.getParameter("action");
         int id = Integer.parseInt(request.getParameter("id"));
+
         try {
             if ("delete".equals(action)) {
-                approveMedicineService.deleteMedicine(id);
+                boolean deleted = approveMedicineService.deleteMedicine(id);
+
+                if (deleted) {
+                    request.getSession().setAttribute("success", "Medicine removed successfully.");
+                } else {
+                    request.getSession().setAttribute("error", "Failed to remove medicine.");
+                }
             }
         } catch (Exception e) {
             request.getSession().setAttribute("error", e.getMessage());
         }
+
         response.sendRedirect(request.getContextPath() + "/admin/approved-medicines");
     }
 }

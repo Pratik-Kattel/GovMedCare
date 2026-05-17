@@ -27,7 +27,7 @@ public class AdminBlockUserServlet extends HttpServlet {
         // fetch all users
         List<User> users = userService.getAllUsers();
         request.setAttribute("users", users);
-        request.getRequestDispatcher("/views/admin-users.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/admin-manageuser.jsp").forward(request, response);
     }
 
     @Override
@@ -48,6 +48,6 @@ public class AdminBlockUserServlet extends HttpServlet {
         } catch (Exception e) {
             session.setAttribute("error", e.getMessage());
         }
-        response.sendRedirect(request.getContextPath() + "/admin/users");
+        response.sendRedirect(request.getContextPath() + "/admin/block-users");
     }
 }
