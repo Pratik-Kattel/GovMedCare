@@ -148,7 +148,7 @@ public class MedicineDao implements MedicineRepository {
 
         }
         catch (SQLException e){
-            logger.log(Level.SEVERE,"Unable to add the stock of current medicine");
+            logger.log(Level.SEVERE,"Unable to add the stock of current medicine",e.getMessage());
 
         }
         return false;
@@ -174,7 +174,7 @@ public class MedicineDao implements MedicineRepository {
                 list.add(medicine);
             }
         } catch (SQLException e) {
-           logger.log(Level.SEVERE,"Unable to fetch the approved medicines");
+           logger.log(Level.SEVERE,"Unable to fetch the approved medicines",e.getMessage());
         }
         return list;
     }
@@ -216,7 +216,7 @@ public class MedicineDao implements MedicineRepository {
                 list.add(medicine);
             }
         } catch (SQLException e) {
-           logger.log(Level.SEVERE,"Failed to fetch approved medicines by categories in ascending");
+           logger.log(Level.SEVERE,"Failed to fetch approved medicines by categories in ascending",e);
         }
         return list;
     }
@@ -240,7 +240,7 @@ public class MedicineDao implements MedicineRepository {
                 list.add(medicine);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE,"Failed to fetch approved medicines by categories in descending");
+            logger.log(Level.SEVERE,"Failed to fetch approved medicines by categories in descending",e);
         }
         return list;
     }
@@ -264,7 +264,7 @@ public class MedicineDao implements MedicineRepository {
             }
 
         } catch (SQLException e) {
-            Logger.getLogger(MedicineDao.class.getName()).log(Level.SEVERE, "Failed to get medicine by id");
+            Logger.getLogger(MedicineDao.class.getName()).log(Level.SEVERE, "Failed to get medicine by id",e);
         }
         return medicine;
     }

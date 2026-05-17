@@ -36,7 +36,7 @@ public class CartDao implements CartRepository {
             }
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Unable to create or fetch cart");
+            logger.log(Level.SEVERE, "Unable to create or fetch cart",e);
         }
         return 0L;
     }
@@ -52,7 +52,7 @@ public class CartDao implements CartRepository {
             return rs.next();
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Unable to fetch the cart medicines");
+            logger.log(Level.SEVERE, "Unable to fetch the cart medicines",e);
         }
         return false;
     }
@@ -69,7 +69,7 @@ public class CartDao implements CartRepository {
 
             return rowsAffected > 0;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Failed to add cart item");
+            logger.log(Level.SEVERE, "Failed to add cart item",e);
         }
         return false;
     }
@@ -87,7 +87,7 @@ public class CartDao implements CartRepository {
             return rowsAffected > 0;
 
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Unable to update the existing cart quantuty");
+            logger.log(Level.SEVERE, "Unable to update the existing cart quantuty",e);
         }
         return false;
     }
@@ -111,7 +111,7 @@ public class CartDao implements CartRepository {
                 list.add(item);
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Unable to get the available cart items");
+            logger.log(Level.SEVERE, "Unable to get the available cart items",e);
         }
         return list;
     }
@@ -124,7 +124,7 @@ public class CartDao implements CartRepository {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Unable to clear cart");
+            logger.log(Level.SEVERE, "Unable to clear cart",e);
         }
         return false;
     }
@@ -138,7 +138,7 @@ public class CartDao implements CartRepository {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Unable to increase quantity");
+            logger.log(Level.SEVERE, "Unable to increase quantity",e);
         }
         return false;
     }
@@ -152,7 +152,7 @@ public class CartDao implements CartRepository {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Unable to decrease quantity");
+            logger.log(Level.SEVERE, "Unable to decrease quantity",e);
         }
         return false;
     }
@@ -166,7 +166,7 @@ public class CartDao implements CartRepository {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Unable to remove quantity");
+            logger.log(Level.SEVERE, "Unable to remove quantity",e);
         }
         return false;
     }

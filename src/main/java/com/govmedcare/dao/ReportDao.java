@@ -24,7 +24,7 @@ public class ReportDao implements ReportRepository {
                 return rs.getDouble("total_revenue");
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Failed to fetch the total revenue");
+            logger.log(Level.SEVERE, "Failed to fetch the total revenue",e);
 
         }
         return 0;

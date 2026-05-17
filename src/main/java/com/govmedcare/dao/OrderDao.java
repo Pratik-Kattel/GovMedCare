@@ -71,7 +71,7 @@ public class OrderDao implements OrderRepository {
 
             }
         } catch (SQLException e) {
-           logger.log(Level.SEVERE,"Unable to get purchase history");
+           logger.log(Level.SEVERE,"Unable to get purchase history",e);
         }
         return list;
 
@@ -96,7 +96,7 @@ public class OrderDao implements OrderRepository {
             }
         }
         catch (SQLException e){
-            logger.log(Level.SEVERE,"Unable to get sales history");
+            logger.log(Level.SEVERE,"Unable to get sales history",e);
         }
         return list;
     }

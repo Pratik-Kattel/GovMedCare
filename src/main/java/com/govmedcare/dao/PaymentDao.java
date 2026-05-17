@@ -26,7 +26,7 @@ public class PaymentDao implements PaymentRepository {
             return rowsAffected>0;
         }
         catch (SQLException e){
-            logger.log(Level.SEVERE,"Unable to save payment");
+            logger.log(Level.SEVERE,"Unable to save payment",e);
 
         }
         return false;

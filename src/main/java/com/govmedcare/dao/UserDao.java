@@ -134,7 +134,7 @@ public class UserDao implements UserRepository {
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Unable to update the user's profile");
+            logger.log(Level.SEVERE, "Unable to update the user's profile",e.getMessage());
         }
         return false;
     }
@@ -149,7 +149,7 @@ public class UserDao implements UserRepository {
                 return rs.getInt("active_users");
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Unable to fetch the number of active users");
+            logger.log(Level.SEVERE, "Unable to fetch the number of active users",e.getMessage());
         }
         return 0;
     }
@@ -164,7 +164,7 @@ public class UserDao implements UserRepository {
                 return rs.getInt("blocked_users");
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Unable to fetch the number of blocked users");
+            logger.log(Level.SEVERE, "Unable to fetch the number of blocked users",e.getMessage());
         }
         return 0;
     }
