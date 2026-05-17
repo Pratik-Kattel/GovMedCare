@@ -443,3 +443,26 @@ tbody td {
     color: var(--muted);
     font-size: .95rem;
 }
+/* Alert Messages */
+
+.alert {
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: .9rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+
+.alert-success {
+    background: #e8f5f3;
+    color: #0a7c6e;
+    border-color: #b7e1dc;
+}
+
+.alert-error {
+    background: #fdf0ef;
+    color: #e5534b;
+    border-color: #f5c6c4;
+}

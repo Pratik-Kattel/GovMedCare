@@ -13,7 +13,7 @@
 <head>
     <title>My Cart – GovMediCare</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/views/CSS/patient.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/views/CSS/patient.css?v=2">
 </head>
 <body>
 
@@ -29,7 +29,21 @@
     </div>
 
     <div class="content">
+        <c:if test="${not empty sessionScope.success}">
+            <div class="alert alert-success">
+                    ${sessionScope.success}
+            </div>
 
+            <c:remove var="success" scope="session"/>
+        </c:if>
+
+        <c:if test="${not empty sessionScope.error}">
+            <div class="alert alert-error">
+                    ${sessionScope.error}
+            </div>
+
+            <c:remove var="error" scope="session"/>
+        </c:if>
         <div class="table-card">
             <c:choose>
                 <c:when test="${empty cartItems}">
