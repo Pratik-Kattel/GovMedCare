@@ -35,7 +35,7 @@ public class ViewSoldHistoryServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/logout");
                 return;
             }
-            List<OrderItem> soldMedicines = orderService.getSoldHistoryService(loggedInUser.getId());
+            List<OrderItem> soldMedicines = orderService.getSoldHistoryService();
             request.setAttribute("soldHistory", soldMedicines);
             request.getRequestDispatcher("/views/sold-history.jsp").forward(request, response);
         }
