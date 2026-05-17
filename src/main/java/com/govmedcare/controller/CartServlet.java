@@ -35,4 +35,34 @@ public class CartServlet extends HttpServlet {
         request.setAttribute("cartItems", cartItems);
         request.getRequestDispatcher("/views/my-cart.jsp").forward(request, response);
     }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("loggedInUser") == null) {
+            response.sendRedirect(request.getContextPath() + "/logout");
+            return;
+        }
+        User user = (User) session.getAttribute("loggedInUser");
+        Long patientId = user.getId();
+        Long medicineId = Long.parseLong(request.getParameter("medicineId"));
+        String action = request.getParameter("action");
+        try {
+            switch (action) {
+                case "increase":
+                    cartService.increaseQuantityService(patientId, medicineId);
+                    break;
+                case "decrease":
+                    cartService.decreaseQuantityService(patientId, medicineId);
+                    break;
+                case "remove":
+                    cartService.removeSingleItemService(patientId, medicineId);
+                    break;
+                default:
+                    throw new RuntimeException("Invalid action");
+            }
+        } catch (Exception e) {
+            session.setAttribute("error", e.getMessage());
+        }
+        response.sendRedirect(request.getContextPath() + "/patient/cart");
+    }
 }

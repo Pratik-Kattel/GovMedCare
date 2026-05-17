@@ -128,4 +128,46 @@ public class CartDao implements CartRepository {
         }
         return false;
     }
+
+    @Override
+    public boolean increaseQuantity(Long patient_id, Long medicine_id) {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.increaseCartQuantity)) {
+            ps.setLong(1, patient_id);
+            ps.setLong(2, medicine_id);
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Unable to increase quantity");
+        }
+        return false;
+    }
+
+    @Override
+    public boolean decreaseQuantity(Long patient_id, Long medicine_id) {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.decreaseCartQuantity)) {
+            ps.setLong(1, patient_id);
+            ps.setLong(2, medicine_id);
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Unable to decrease quantity");
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeSingleItem(Long patient_id, Long medicine_id) {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(QueryUtil.removeSingleItemFromCart)) {
+            ps.setLong(1, patient_id);
+            ps.setLong(2, medicine_id);
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Unable to remove quantity");
+        }
+        return false;
+    }
 }

@@ -47,4 +47,24 @@ public class CartService {
         }
         return cartDao.clearCart(patient_id);
     }
+    public boolean increaseQuantityService(Long patientId, Long medicineId) {
+        if (patientId <= 0 || medicineId <= 0) {
+            throw new RuntimeException("Invalid request");
+        }
+        return cartDao.increaseQuantity(patientId, medicineId);
+    }
+    public boolean decreaseQuantityService(Long patient_id, Long medicine_id) {
+        if (patient_id <= 0 || medicine_id <= 0) {
+            throw new RuntimeException("Invalid request");
+        }
+        return cartDao.decreaseQuantity(patient_id,medicine_id);
+    }
+    public boolean removeSingleItemService(Long patient_id, Long medicine_id) {
+        if (patient_id <= 0 || medicine_id <= 0) {
+            throw new RuntimeException("Invalid request");
+        }
+        return cartDao.removeSingleItem(patient_id,medicine_id);
+    }
+
+
 }

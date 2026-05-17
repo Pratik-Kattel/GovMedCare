@@ -37,4 +37,7 @@ public class QueryUtil {
    public static final String calculateTotalRevenue="SELECT SUM(total_amount) AS total_revenue from orders WHERE status='Completed'";
    public static final String getTotalActiveUsers="SELECT COUNT(user_id) AS active_users FROM users where status='active'";
    public static final String getTotalBlockedUsers="SELECT COUNT(user_id) AS blocked_users FROM users where status='blocked'";
+   public static final String decreaseCartQuantity="UPDATE cart_items ci JOIN cart c ON ci.cart_id = c.cart_id SET ci.quantity = ci.quantity - 1 WHERE c.patient_id = ? AND ci.medicine_id = ? AND ci.quantity > 1";
+   public static final String increaseCartQuantity="UPDATE cart_items ci JOIN cart c ON ci.cart_id = c.cart_id SET ci.quantity = ci.quantity + 1 WHERE c.patient_id = ? AND ci.medicine_id = ?";
+   public static final String removeSingleItemFromCart="DELETE ci FROM cart_items ci JOIN cart c ON ci.cart_id = c.cart_id WHERE c.patient_id = ? AND ci.medicine_id = ?;";
 }
