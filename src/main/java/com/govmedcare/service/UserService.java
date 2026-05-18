@@ -17,34 +17,6 @@ import java.util.List;
 public class UserService {
     UserDao userDao = new UserDao();
 
-    public boolean registerUserService(User user) {
-        boolean existByEmail = userDao.checkByEmail(user.getEmail());
-        if (existByEmail) {
-            throw new UserAlreadyExistsException("User already exists please login to continue");
-        }
-        String hashedPassword = HashPasswordUtility.hashPassword(user.getPassword());
-        user.setPassword(hashedPassword);
-        user.setRole(UserRole.PATIENT);
-        user.setStatus(UserStatus.active);
-        return userDao.saveUser(user);
-    }
-
-    public User LoginUserService(String email, String password) {
-        User existingUser = userDao.findByEmail(email).orElseThrow(() -> new UserDoesNotExistsException(
-                "User with this email doesn't exists please register to continue"));
-        if (existingUser.getStatus() == UserStatus.blocked) {
-            throw new UserBlockedException("Account blocked, please contact administration for support");
-        }
-        // Verify password using utility class
-        boolean validPassword = HashPasswordUtility.verifyPassword(password, existingUser.getPassword());
-        if (!validPassword) {
-            throw new InvalidCredentialsException("Invalid Credentials provided");
-        }
-        // Remove password before returning user object
-        existingUser.setPassword(null);
-        return existingUser;
-    }
-
     public boolean blockUserService(Long id) {
         if (id <= 0) {
             throw new UserDoesNotExistsException("Invalid user, please try again");
