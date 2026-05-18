@@ -278,12 +278,7 @@
     <!-- ── Left decorative panel ── -->
     <div class="left-panel">
         <div class="brand">
-
-            <%--            <div class="brand-icon">--%>
-            <%--                <img src="${pageContext.request.contextPath}assest/logo.png" alt="Logo">--%>
-            <%--            </div>--%>
-
-            <div class="brand-name">MediCare</div>
+            <div class="brand-name">GovMedCare</div>
             <p class="brand-tagline">Your Health, Our Responsibility.<br>"The Ministry of Health & Population of Nepal".</p>
         </div>
     </div>
