@@ -30,14 +30,17 @@ public class UserService {
     }
 
     public User LoginUserService(String email, String password) {
-        User existingUser = userDao.findByEmail(email).orElseThrow(() -> new UserDoesNotExistsException("User with this email doesn't exists please register to continue"));
+        User existingUser = userDao.findByEmail(email).orElseThrow(() -> new UserDoesNotExistsException(
+                "User with this email doesn't exists please register to continue"));
         if (existingUser.getStatus() == UserStatus.blocked) {
             throw new UserBlockedException("Account blocked, please contact administration for support");
         }
-        boolean validPassword = BCrypt.checkpw(password, existingUser.getPassword());
+        // Verify password using utility class
+        boolean validPassword = HashPasswordUtility.verifyPassword(password, existingUser.getPassword());
         if (!validPassword) {
             throw new InvalidCredentialsException("Invalid Credentials provided");
         }
+        // Remove password before returning user object
         existingUser.setPassword(null);
         return existingUser;
     }
