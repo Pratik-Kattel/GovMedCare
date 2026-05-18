@@ -111,8 +111,8 @@ public class UserDao implements UserRepository {
              PreparedStatement ps = conn.prepareStatement(QueryUtil.blockUser)
         ) {
             ps.setLong(1, id);
-            int rows = ps.executeUpdate();
-            if (rows > 0) return true;
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected>0;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Failed to block User", e.getMessage());
 
