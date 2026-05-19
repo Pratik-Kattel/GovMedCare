@@ -23,6 +23,7 @@
     <a href="${pageContext.request.contextPath}/patient/medicines">View Medicines</a>
     <a href="${pageContext.request.contextPath}/patient/cart">My Cart</a>
     <a href="${pageContext.request.contextPath}/patient/purchase-history">My Purchases</a>
+    <a href="${pageContext.request.contextPath}/about">About Us</a>
     <a href="${pageContext.request.contextPath}/patient/profile">Profile</a>
     <a href="${pageContext.request.contextPath}/logout">Logout</a>
   </nav>
