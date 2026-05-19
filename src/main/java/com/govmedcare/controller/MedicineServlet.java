@@ -8,7 +8,6 @@ import com.govmedcare.model.User;
 import com.govmedcare.service.MedicineService;
 import com.govmedcare.utils.ImageUpload;
 import com.govmedcare.validator.MedicineValidator;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -35,15 +34,10 @@ public class MedicineServlet extends HttpServlet {
         this.categoryDao = new CategoryDao();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("categories", categoryDao.getAllCategory());
-
         String categoryId = request.getParameter("category_id");
-
         List<Medicine> medicines;
-
         if (categoryId != null && !categoryId.isEmpty()) {
             Long id = Long.parseLong(categoryId);
             medicines = saveMedicineService.getAllMedicineByCategory(id);
@@ -53,8 +47,7 @@ public class MedicineServlet extends HttpServlet {
 
         request.setAttribute("medicines", medicines);
 
-        request.getRequestDispatcher("/views/medicine.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/views/medicine.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -74,8 +67,7 @@ public class MedicineServlet extends HttpServlet {
                 String contextPath = request.getContextPath();
                 response.sendRedirect(contextPath + "/logout");
                 return;
-            }
-            User loggedInUser = (User) session.getAttribute("loggedInUser");
+            }           User loggedInUser = (User) session.getAttribute("loggedInUser");
             MedicineValidator.validateMedicine(medicine);
             boolean saveMedicine = saveMedicineService.saveMedicineService(medicine, loggedInUser.getId(),quantity);
             if (saveMedicine) {
