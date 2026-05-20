@@ -25,7 +25,7 @@
 <head>
     <title>My Cart – GovMediCare</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/views/CSS/patient.css?v=2">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/views/CSS/patient.css?v=5">
 </head>
 <body>
 
@@ -92,13 +92,32 @@
                         </tbody>
                     </table>
 
-                    <div class="cart-summary">
-                        <h3>Total: NPR ${grandTotal}</h3>
+                <div class="cart-summary">
 
-                        <a href="${pageContext.request.contextPath}/patient/checkout"
-                           class="btn-submit">
-                            Proceed Payment
-                        </a>
+                    <div class="cart-total-row">
+
+                        <div class="total-left">
+                            <h3>Total: NPR ${grandTotal}</h3>
+                        </div>
+
+                        <div class="total-right">
+                            <form method="post"
+                                  action="${pageContext.request.contextPath}/cart/clear">
+
+                                <button type="submit" class="btn-clear-cart">
+                                    Clear Cart
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <a href="${pageContext.request.contextPath}/patient/checkout"
+                       class="btn-submit">
+                        Proceed Payment
+                    </a>
+
+                </div>
                     </div>
                 </c:otherwise>
             </c:choose>
