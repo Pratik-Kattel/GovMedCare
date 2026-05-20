@@ -7,7 +7,19 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.govmedcare.model.User" %>
 
+<%
+    User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+    String userName = "Patient";
+    String firstLetter = "P";
+
+    if (loggedInUser != null && loggedInUser.getName() != null) {
+        userName = loggedInUser.getName();
+        firstLetter = userName.substring(0,1).toUpperCase();
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,10 +34,10 @@
 <div class="main">
     <div class="topbar">
         <h1>My Cart</h1>
-        <div class="topbar-user">
-            <div class="avatar">P</div>
-            <span>Patient</span>
-        </div>
+        <<div class="topbar-user">
+        <div class="avatar"><%= firstLetter %></div>
+        <span><%= userName %></span>
+    </div>
     </div>
 
     <div class="content">
