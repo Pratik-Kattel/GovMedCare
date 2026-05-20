@@ -561,3 +561,37 @@ tbody td {
     border-color: var(--muted);
     color: var(--text);
 }
+.cart-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-clear-cart {
+    background: #fff;
+
+    color: #dc2626;
+
+    border: 1px solid #fecaca;
+
+    padding: 7px 14px;
+
+    border-radius: 8px;
+
+    font-family: 'DM Sans', sans-serif;
+    font-size: .82rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    margin-left: 28px;
+
+    transition: all .2s ease;
+}
+
+.btn-clear-cart:hover {
+    background: #fef2f2;
+    border-color: #f87171;
+    color: #b91c1c;
+}
